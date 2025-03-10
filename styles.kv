@@ -1,0 +1,27 @@
+<DButton>:
+    canvas:
+
+        Color:
+            rgba: root.background_color_down if root.is_pressed else root.background_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: root.background_radius
+        
+        Color:
+            rgba: root.border_color_down if root.is_pressed else root.border_color
+        Line:
+            rounded_rectangle: [self.x, self.y, self.width, self.height, root.background_radius[0]]
+            width: root.border_line_width
+
+    Label:
+        text: root.text
+
+<CustomBox>:
+    
+    canvas:
+        Color:
+            rgba: (1, 0, 0, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
