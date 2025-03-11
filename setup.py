@@ -3,10 +3,12 @@ from setuptools import setup, find_packages
 setup(
     name="kivy_desktop",
     version="0.0.1",
+    author="Beltrán Offerrall",
     packages=find_packages(),
-    install_requires=[],
-    author="Beltran offerrall",
-    author_email="offerrallps4@gmail.com",
-    description="Custom Kivy widgets for desktop applications",
-    python_requires=">=3.9",
+    package_data={
+        'kivy_desktop': ['*.kv'],
+    },
+    install_requires=[
+        'kivy',
+    ],
 )
