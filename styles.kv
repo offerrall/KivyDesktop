@@ -1,6 +1,8 @@
 <DButton>:
+    orientation: 'horizontal'
+    padding: dp(10)
+    
     canvas:
-
         Color:
             rgba: root.background_color_down if root.is_pressed else root.background_color
         RoundedRectangle:
@@ -13,12 +15,30 @@
         Line:
             rounded_rectangle: [self.x, self.y, self.width, self.height, root.background_radius[0]]
             width: root.border_line_width
+    
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: None, None
+            size: self.minimum_size
+            spacing: root.icon_text_spacing
 
-    Label:
-        text: root.text
+            Image:
+                id: icon
+                source: root.icon_source
+                size_hint: None, None
+                size: root.icon_size, root.icon_size
+
+            Label:
+                text: root.text
+                size_hint: None, None
+                size: self.texture_size
+
 
 <CustomBox>:
-    
     canvas:
         Color:
             rgba: (1, 0, 0, 1)

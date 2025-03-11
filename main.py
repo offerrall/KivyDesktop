@@ -21,17 +21,16 @@ class MainApp(App):
         # Botón con valores predeterminados
         btn1 = DButton( 
             release_callback=self.button_callback,
+            icon_source="aa.png",
         )
         
         # Botón con colores personalizados
         btn2 = DButton(
-            border_line_width=dp(1.5),
             release_callback=self.button_callback
         )
         
         # Botón con formato diferente
         btn3 = DButton(
-            border_line_width=dp(2),
             release_callback=self.button_callback
         )
         

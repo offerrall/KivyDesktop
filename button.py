@@ -2,6 +2,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import BooleanProperty, ObjectProperty, ListProperty, NumericProperty, StringProperty
 from kivy.metrics import dp
 from kivy.core.window import Window
+from kivy.clock import Clock
 
 class DButton(BoxLayout):
     text = StringProperty('Button')
@@ -9,11 +10,15 @@ class DButton(BoxLayout):
     is_hover = BooleanProperty(False)
     release_callback = ObjectProperty(None)
     
+    icon_source = StringProperty('')
+    icon_size = NumericProperty(dp(24))
+    icon_text_spacing = NumericProperty(dp(10))
+    
     background_color = ListProperty([0.10, 0.10, 0.10, 1])
     background_color_down = ListProperty([0.05, 0.05, 0.05, 1])
     border_color = ListProperty([0, 0, 0, 1])
     border_color_down = ListProperty([0, 1, 1, 1])
-
+    
     background_radius = ListProperty([dp(6), dp(6), dp(6), dp(6)])
     border_line_width = NumericProperty(dp(1.2))
     
@@ -21,6 +26,16 @@ class DButton(BoxLayout):
         super().__init__(**kwargs)
         Window.bind(mouse_pos=self.on_mouse_pos)
         self.border_color_cache = self.border_color
+
+        Clock.schedule_once(self.check_icon, 0)
+    
+    def check_icon(self, dt):
+        if not self.icon_source:
+            if hasattr(self.ids, 'icon'):
+                self.ids.icon.opacity = 0
+                self.ids.icon.size_hint = None, None
+                self.ids.icon.size = 0, 0
+                print("Icon hidden")
     
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
@@ -28,9 +43,11 @@ class DButton(BoxLayout):
         return super().on_touch_down(touch)
     
     def on_touch_up(self, touch):
-        if self.is_pressed:
+        if self.is_pressed and self.collide_point(*touch.pos):
             self.is_pressed = False
             self.on_press()
+        elif self.is_pressed:
+            self.is_pressed = False
         return super().on_touch_up(touch)
     
     def on_press(self):
