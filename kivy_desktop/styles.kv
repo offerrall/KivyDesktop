@@ -17,26 +17,17 @@
             width: root.border_line_width
     
     AnchorLayout:
-        anchor_x: 'center'
+        id: anchor_layout
+        anchor_x: 'left' if root.content_alignment == 'left' else ('right' if root.content_alignment == 'right' else 'center')
         anchor_y: 'center'
         
         BoxLayout:
+            id: content_box
             orientation: 'horizontal'
             size_hint: None, None
             size: self.minimum_size
-            spacing: root.icon_text_spacing
-
-            Image:
-                id: icon
-                source: root.icon_source
-                size_hint: None, None
-                size: root.icon_size, root.icon_size
-
-            Label:
-                text: root.text
-                size_hint: None, None
-                size: self.texture_size
-
+            spacing: root.icon_text_spacing if root.icon_source else 0
+            padding: [0, (max(self.height, root.icon_size) - min(self.height, root.icon_size))/2 if root.icon_source else 0, 0, 0]
 
 <CustomBox>:
     canvas:
