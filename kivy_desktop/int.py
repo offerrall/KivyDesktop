@@ -35,6 +35,9 @@ class DInt(BoxLayout):
         self.spacing = dp(0)
         self.size_hint_y = None
         
+        self.decrement_error_timer = None
+        self.increment_error_timer = None
+        
         self.decrement_btn = DButton(
             text="-",
             size_hint=(None, 1),
@@ -106,11 +109,44 @@ class DInt(BoxLayout):
         new_value = self.value + self.step
         if new_value <= self.max_value:
             self.value = new_value
+        else:
+            self.set_increment_error_state()
     
     def decrement(self, instance):
         new_value = self.value - self.step
         if new_value >= self.min_value:
             self.value = new_value
+        else:
+            self.set_decrement_error_state()
+    
+    def set_increment_error_state(self):
+
+        if self.increment_error_timer:
+            self.increment_error_timer.cancel()
+
+        self.increment_btn.border_hover = self.error_color
+        self.increment_btn.border_color = self.error_color
+        
+        self.increment_error_timer = Clock.schedule_once(self.reset_increment_state, 0.5)
+    
+    def set_decrement_error_state(self):
+        if self.decrement_error_timer:
+            self.decrement_error_timer.cancel()
+
+        self.decrement_btn.border_hover = self.error_color
+        self.decrement_btn.border_color = self.error_color
+
+        self.decrement_error_timer = Clock.schedule_once(self.reset_decrement_state, 0.5)
+    
+    def reset_increment_state(self, dt):
+        self.increment_btn.border_hover = self.plus_minus_border_color_down
+        self.increment_btn.border_color = self.border_color
+        self.increment_error_timer = None
+    
+    def reset_decrement_state(self, dt):
+        self.decrement_btn.border_hover = self.plus_minus_border_color_down
+        self.decrement_btn.border_color = self.border_color
+        self.decrement_error_timer = None
     
     def on_text_changed(self, instance, text):
         if text == '':
@@ -139,18 +175,26 @@ class DInt(BoxLayout):
         decrement_disabled = self.value <= self.min_value
         increment_disabled = self.value >= self.max_value
 
-        if decrement_disabled:
-            self.decrement_btn.border_hover = self.error_color
-            self.decrement_btn.border_color = self.error_color
-        else:
+        if decrement_disabled and not self.decrement_error_timer:
+            if self.decrement_btn.border_hover != self.error_color:
+                self.decrement_btn.border_hover = self.error_color
+                self.decrement_btn.border_color = self.error_color
+        elif not decrement_disabled:
             if self.decrement_btn.border_hover == self.error_color:
                 self.decrement_btn.border_hover = self.plus_minus_border_color_down
                 self.decrement_btn.border_color = self.border_color
+                if self.decrement_error_timer:
+                    self.decrement_error_timer.cancel()
+                    self.decrement_error_timer = None
         
-        if increment_disabled:
-            self.increment_btn.border_hover = self.error_color
-            self.increment_btn.border_color = self.error_color
-        else:
+        if increment_disabled and not self.increment_error_timer:
+            if self.increment_btn.border_hover != self.error_color:
+                self.increment_btn.border_hover = self.error_color
+                self.increment_btn.border_color = self.error_color
+        elif not increment_disabled:
             if self.increment_btn.border_hover == self.error_color:
                 self.increment_btn.border_hover = self.plus_minus_border_color_down
                 self.increment_btn.border_color = self.border_color
+                if self.increment_error_timer:
+                    self.increment_error_timer.cancel()
+                    self.increment_error_timer = None
