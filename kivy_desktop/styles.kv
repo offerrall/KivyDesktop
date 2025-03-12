@@ -13,7 +13,7 @@
         Color:
             rgba: root.border_color_down if root.is_pressed else root.border_color
         Line:
-            rounded_rectangle: [self.x, self.y, self.width, self.height, root.background_radius[0]]
+            rounded_rectangle: [self.x, self.y, self.width, self.height] + root.background_radius
             width: root.border_line_width
     
     AnchorLayout:
@@ -28,22 +28,3 @@
             size: self.minimum_size
             spacing: root.icon_text_spacing if root.icon_source else 0
             padding: [0, (max(self.height, root.icon_size) - min(self.height, root.icon_size))/2 if root.icon_source else 0, 0, 0]
-
-<DInt>:
-    canvas.before:
-        Color:
-            rgba: 0.12, 0.14, 0.17, 1
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [dp(6)]
-
-    TextInput:
-        background_normal: ''
-        background_active: ''
-        background_color: 0.12, 0.14, 0.17, 1
-        foreground_color: 1, 1, 1, 1
-        cursor_color: 1, 1, 1, 1
-        selection_color: 0.2, 0.6, 0.8, 0.5
-        padding: dp(10), dp(10)
-        font_size: dp(16)

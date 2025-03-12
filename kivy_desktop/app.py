@@ -1,5 +1,4 @@
 from kivy.app import App
-from kivy.config import Config
 from kivy.clock import Clock
 
 class DApp(App):
@@ -9,9 +8,7 @@ class DApp(App):
                  fps=60,
                  title="Kivy Desktop App",
                  **kwargs):
-        
-        Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
-        Config.set('graphics', 'maxfps', '0')
+
         self.container = main_container
         self.fps = fps
         kwargs['title'] = title

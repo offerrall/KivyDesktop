@@ -23,12 +23,10 @@ class DInt(BoxLayout):
         self.orientation = 'horizontal'
         self.spacing = dp(0)
         self.size_hint_y = None
-        self.height = dp(40)
         
         self.decrement_btn = DButton(
             text="-",
             size_hint=(None, 1),
-            width=dp(40),
             release_callback=self.decrement,
             background_radius=[dp(6), 0, 0, dp(6)]
         )
@@ -48,7 +46,6 @@ class DInt(BoxLayout):
         self.increment_btn = DButton(
             text="+",
             size_hint=(None, 1),
-            width=dp(40),
             release_callback=self.increment,
             background_radius=[0, dp(6), dp(6), 0]
         )

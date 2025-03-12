@@ -16,7 +16,7 @@ for i in range(4):
                   release_callback=lambda instance: print(instance.text)
                   )
     
-    int_input = DInt()
+    int_input = DInt(size_hint_y=None, height=dp(50), min_value=-10, max_value=10, value=5)
     int_input.bind(value=lambda instance, value: print(value))
 
     scroll_view.add_widget(int_input)
