@@ -56,7 +56,6 @@ class DInt(BoxLayout):
             text=str(self.value),
             multiline=False,
             halign='center',
-            input_filter='int',
             background_normal='',
             background_active='',
             border=[0, 0, 0, 0],
@@ -150,6 +149,8 @@ class DInt(BoxLayout):
     
     def on_text_changed(self, instance, text):
         if text == '':
+            return
+        if text == '-':
             return
         
         try:
