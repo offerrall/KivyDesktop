@@ -24,7 +24,7 @@ class DButton(BoxLayout):
     background_color = ListProperty(COLORS['back1'])
     background_color_down = ListProperty(COLORS['back2'])
     border_color = ListProperty(COLORS['border'])
-    border_color_down = ListProperty(COLORS['seleted'])
+    border_hover = ListProperty(COLORS['seleted'])
     font_color = ListProperty(COLORS['font'])
 
     background_radius = ListProperty([dp(6), dp(6), dp(6), dp(6)])
@@ -206,15 +206,6 @@ class DButton(BoxLayout):
         
         if inside != self.is_hover:
             self.is_hover = inside
-            self.apply_hover_effect(self.is_hover)
-    
-    def apply_hover_effect(self, is_hover):
-        if is_hover:
-            self.border_color_cache = self.border_color.copy()
-            r, g, b, a = self.border_color_down
-            self.border_color = [r * 0.8, g * 0.8, b * 0.8, a]
-        else:
-            self.border_color = self.border_color_cache
     
     def on_parent(self, widget, parent):
         if parent is None:

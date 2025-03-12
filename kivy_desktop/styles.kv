@@ -11,7 +11,7 @@
             radius: root.background_radius
         
         Color:
-            rgba: root.border_color_down if root.is_pressed else root.border_color
+            rgba: root.border_hover if root.is_hover else root.border_color
         Line:
             rounded_rectangle: [self.x, self.y, self.width, self.height] + root.background_radius
             width: root.border_line_width

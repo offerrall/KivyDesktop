@@ -40,7 +40,7 @@ class DInt(BoxLayout):
             size_hint=(None, 1),
             width=self.plus_minus_width,
             border_color=self.border_color,
-            border_color_down=self.plus_minus_border_color_down,
+            border_hover=self.plus_minus_border_color_down,
             release_callback=self.decrement,
             border_line_width=self.border_line_width,
             background_color=self.plus_minus_background_color,
@@ -66,7 +66,7 @@ class DInt(BoxLayout):
             size_hint=(None, 1),
             width=self.plus_minus_width,
             border_color=self.border_color,
-            border_color_down=self.plus_minus_border_color_down,
+            border_hover=self.plus_minus_border_color_down,
             release_callback=self.increment,
             border_line_width=self.border_line_width,
             background_color=self.plus_minus_background_color,
@@ -138,17 +138,17 @@ class DInt(BoxLayout):
         increment_disabled = self.value >= self.max_value
 
         if decrement_disabled:
-            self.decrement_btn.border_color_down = self.error_color
+            self.decrement_btn.border_hover = self.error_color
             self.decrement_btn.border_color = self.error_color
         else:
-            if self.decrement_btn.border_color_down == self.error_color:
-                self.decrement_btn.border_color_down = self.plus_minus_border_color_down
+            if self.decrement_btn.border_hover == self.error_color:
+                self.decrement_btn.border_hover = self.plus_minus_border_color_down
                 self.decrement_btn.border_color = self.border_color
         
         if increment_disabled:
-            self.increment_btn.border_color_down = self.error_color
+            self.increment_btn.border_hover = self.error_color
             self.increment_btn.border_color = self.error_color
         else:
-            if self.increment_btn.border_color_down == self.error_color:
-                self.increment_btn.border_color_down = self.plus_minus_border_color_down
+            if self.increment_btn.border_hover == self.error_color:
+                self.increment_btn.border_hover = self.plus_minus_border_color_down
                 self.increment_btn.border_color = self.border_color
