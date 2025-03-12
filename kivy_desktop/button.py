@@ -33,11 +33,7 @@ class DButton(BoxLayout):
         self.label = None
         self.icon = None
         
-        self.bind(is_pressed=self.force_canvas_update)
         Clock.schedule_once(self.setup_widgets, 0)
-    
-    def force_canvas_update(self, *args):
-        self.canvas.ask_update()
 
     def setup_widgets(self, dt):
         content_box = self.ids.content_box
@@ -182,18 +178,15 @@ class DButton(BoxLayout):
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
             self.is_pressed = True
-            self.canvas.ask_update()
         return super().on_touch_down(touch)
     
     def on_touch_up(self, touch):
         was_pressed = self.is_pressed
         if was_pressed and self.collide_point(*touch.pos):
             self.is_pressed = False
-            self.canvas.ask_update()
             self.on_press()
         elif was_pressed:
             self.is_pressed = False
-            self.canvas.ask_update()
         return super().on_touch_up(touch)
     
     def on_press(self):
@@ -206,7 +199,6 @@ class DButton(BoxLayout):
         if inside != self.is_hover:
             self.is_hover = inside
             self.apply_hover_effect(self.is_hover)
-            self.canvas.ask_update()
     
     def apply_hover_effect(self, is_hover):
         if is_hover:
