@@ -9,6 +9,7 @@ class DApp(App):
                  fps=60,
                  title="Kivy Desktop App",
                  **kwargs):
+        
         Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
         Config.set('graphics', 'maxfps', '0')
         self.container = main_container
@@ -22,7 +23,6 @@ class DApp(App):
         return self.container
     
     def on_start(self):
-        # Schedule canvas updates at the desired FPS
         self._update_event = Clock.schedule_interval(self._force_update, 1/self.fps)
     
     def on_stop(self):
