@@ -117,7 +117,6 @@ class DInt(BoxLayout):
             self.set_decrement_error_state()
     
     def set_increment_error_state(self):
-
         if self.increment_error_timer:
             self.increment_error_timer.cancel()
 
@@ -165,8 +164,6 @@ class DInt(BoxLayout):
         if self.text_input.text != str(value):
             self.text_input.text = str(value)
         
-        self.update_buttons_state()
-        
         if self.on_change_callback:
             self.on_change_callback(self, value)
     
@@ -174,26 +171,16 @@ class DInt(BoxLayout):
         decrement_disabled = self.value <= self.min_value
         increment_disabled = self.value >= self.max_value
 
-        if decrement_disabled and not self.decrement_error_timer:
-            if self.decrement_btn.border_hover != self.error_color:
-                self.decrement_btn.border_hover = self.error_color
-                self.decrement_btn.border_color = self.error_color
-        elif not decrement_disabled:
-            if self.decrement_btn.border_hover == self.error_color:
+        if self.decrement_error_timer:
+            if not decrement_disabled:
                 self.decrement_btn.border_hover = self.plus_minus_border_color_down
                 self.decrement_btn.border_color = self.border_color
-                if self.decrement_error_timer:
-                    self.decrement_error_timer.cancel()
-                    self.decrement_error_timer = None
+                self.decrement_error_timer.cancel()
+                self.decrement_error_timer = None
         
-        if increment_disabled and not self.increment_error_timer:
-            if self.increment_btn.border_hover != self.error_color:
-                self.increment_btn.border_hover = self.error_color
-                self.increment_btn.border_color = self.error_color
-        elif not increment_disabled:
-            if self.increment_btn.border_hover == self.error_color:
+        if self.increment_error_timer:
+            if not increment_disabled:
                 self.increment_btn.border_hover = self.plus_minus_border_color_down
                 self.increment_btn.border_color = self.border_color
-                if self.increment_error_timer:
-                    self.increment_error_timer.cancel()
-                    self.increment_error_timer = None
+                self.increment_error_timer.cancel()
+                self.increment_error_timer = None
