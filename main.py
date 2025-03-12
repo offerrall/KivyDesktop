@@ -22,37 +22,29 @@ class BackgroundWidget(BoxLayout):
         self.rect.size = self.size
 
 
-# Creamos un contenedor que tiene un fondo rojo y ocupa toda la ventana
 background = BackgroundWidget(orientation='vertical')
-
-# Creamos el ScrollView que irá dentro del contenedor con fondo rojo
-# Usamos size_hint=(1, 1) para que ocupe todo el espacio disponible
 scroll_view = DScrollView(size_hint=(1, 1))
+scroll_view.layout.padding = [dp(20), dp(20), dp(20), dp(20)]
 
-# Ajustamos el padding y spacing para que los widgets estén más separados
-scroll_view.layout.padding = [dp(20), dp(20), dp(20), dp(20)]  # [left, top, right, bottom]
-# Creamos widgets más grandes
+
 for i in range(10):
     if i < 2:
         continue
     
-    # Aumentamos el tamaño de los widgets
-    HEIGHT = dp(i * 15)  # Multiplicamos por 15 en lugar de 10 para hacerlos más altos
+    HEIGHT = dp(i * 10)
     print(HEIGHT)
     
-    # Botón con texto más grande y que ocupe el ancho completo
     btn = DButton(
         text=f"Height: {HEIGHT}",
         size_hint_y=None,
-        size_hint_x=1,  # Ocupa todo el ancho disponible
+        size_hint_x=1,
         height=HEIGHT,
         release_callback=lambda instance: print(instance.text)
     )
     
-    # Widget de entrada de enteros con tamaño más grande
     int_input = DInt(
         size_hint_y=None,
-        size_hint_x=1,  # Ocupa todo el ancho disponible
+        size_hint_x=1,
         height=HEIGHT,
         min_value=-10,
         max_value=10,
@@ -65,10 +57,8 @@ for i in range(10):
     scroll_view.add_widget(btn)
     scroll_view.add_widget(int_input)
 
-# Añadimos el ScrollView al widget de fondo
 background.add_widget(scroll_view)
 
-# Usamos el widget de fondo como contenedor principal
 app = DApp(main_container=background, fps=144, title="Kivy Desktop Test")
 
 if __name__ == "__main__":
