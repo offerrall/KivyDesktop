@@ -201,7 +201,8 @@ class DInt(BoxLayout):
                 self.increment_error_timer = None
     
     def on_window_touch_down(self, window, touch):
-        local_pos = self.to_widget(*touch.pos)
+        if hasattr(touch, 'button') and touch.button.startswith('scroll'):
+            return False
         
         if self.text_input.collide_point(*self.text_input.to_widget(*touch.pos)):
             if touch.is_double_tap:
