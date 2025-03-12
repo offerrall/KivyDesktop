@@ -57,6 +57,25 @@ for i in range(10):
     scroll_view.add_widget(btn)
     scroll_view.add_widget(int_input)
 
+
+btn = DButton(
+    text=f"Height: {HEIGHT}",
+    size_hint_y=None,
+    size_hint_x=1,
+    height=HEIGHT,
+    release_callback=lambda instance: print(instance.text)
+)
+int_input = DInt(
+    size_hint_y=None,
+    size_hint_x=1,
+    height=HEIGHT,
+    min_value=-10,
+    max_value=1000,
+    value=5,
+    border_line_width=dp(1.2),
+)
+background.add_widget(btn)
+background.add_widget(int_input)
 background.add_widget(scroll_view)
 
 app = DApp(main_container=background, fps=144, title="Kivy Desktop Test")
