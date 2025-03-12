@@ -27,14 +27,9 @@ scroll_view = DScrollView(size_hint=(1, 1))
 scroll_view.layout.padding = [dp(20), dp(20), dp(20), dp(20)]
 
 
-for i in range(30):
-    if i < 2:
-        continue
+for i in range(5):
     
-    HEIGHT = dp(i * 10)
-    if HEIGHT > 50:
-        HEIGHT = dp(30)
-    print(HEIGHT)
+    HEIGHT = dp(30)
     
     btn = DButton(
         text=f"Height: {HEIGHT}",
@@ -60,24 +55,7 @@ for i in range(30):
     scroll_view.add_widget(int_input)
 
 
-btn = DButton(
-    text=f"Height: {HEIGHT}",
-    size_hint_y=None,
-    size_hint_x=1,
-    height=HEIGHT,
-    release_callback=lambda instance: print(instance.text)
-)
-int_input = DInt(
-    size_hint_y=None,
-    size_hint_x=1,
-    height=HEIGHT,
-    min_value=-10,
-    max_value=1000,
-    value=5,
-    border_line_width=dp(1.2),
-)
-background.add_widget(btn)
-background.add_widget(int_input)
+
 background.add_widget(scroll_view)
 
 app = DApp(main_container=background, fps=144, title="Kivy Desktop Test")
