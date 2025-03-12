@@ -59,7 +59,22 @@ class DInt(BoxLayout):
         self.bind(max_value=self.update_buttons_state)
         
         Clock.schedule_once(self.update_buttons_state, 0)
-    
+        Clock.schedule_once(self.center_text_vertically, 0)
+
+    def center_text_vertically(self, dt):
+        available_space = self.text_input.height - self.text_input.minimum_height
+        
+        offset = dp(7)
+        
+        top_padding = (available_space / 2.0) + offset
+        bottom_padding = (available_space / 2.0) - offset
+        
+        self.text_input.padding_y = [top_padding, bottom_padding]
+        self.text_input.bind(height=self.on_text_input_height_changed)
+        
+    def on_text_input_height_changed(self, instance, height):
+        self.center_text_vertically(0)
+
     def increment(self, instance):
         new_value = self.value + self.step
         if new_value <= self.max_value:
