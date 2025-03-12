@@ -15,6 +15,7 @@ class DInt(BoxLayout):
     step = NumericProperty(1)
     background_radius = NumericProperty(dp(6))
     background_color = ListProperty(COLORS['back2'])
+    border_color = ListProperty(COLORS['border'])
     plus_minus_width = NumericProperty(dp(40))
     
     hint_text = StringProperty("")
@@ -44,6 +45,7 @@ class DInt(BoxLayout):
             background_normal='',
             background_active='',
             border=[0, 0, 0, 0],
+            border_color=self.border_color,
             background_color=self.background_color,
             foreground_color=COLORS['font'],
             cursor_color=COLORS['font'],
