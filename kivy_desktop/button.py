@@ -5,6 +5,7 @@ from kivy.core.window import Window
 from kivy.clock import Clock
 from kivy.uix.image import Image
 from kivy.uix.label import Label
+from .theme import COLORS
 
 class DButton(BoxLayout):
     text = StringProperty('Button')
@@ -19,10 +20,10 @@ class DButton(BoxLayout):
     icon_placement = StringProperty('left')
     content_alignment = StringProperty('center')
     
-    background_color = ListProperty([0.10, 0.10, 0.10, 1])
-    background_color_down = ListProperty([0.05, 0.05, 0.05, 1])
-    border_color = ListProperty([0, 0, 0, 1])
-    border_color_down = ListProperty([0, 1, 1, 1])
+    background_color = ListProperty(COLORS['back1'])
+    background_color_down = ListProperty(COLORS['back2'])
+    border_color = ListProperty(COLORS['border'])
+    border_color_down = ListProperty(COLORS['seleted'])
     
     background_radius = ListProperty([dp(6), dp(6), dp(6), dp(6)])
     border_line_width = NumericProperty(dp(1.2))

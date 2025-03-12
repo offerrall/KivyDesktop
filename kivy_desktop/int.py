@@ -1,8 +1,9 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
-from kivy.properties import NumericProperty, StringProperty, ObjectProperty
+from kivy.properties import NumericProperty, StringProperty, ObjectProperty, ListProperty
 from kivy.metrics import dp
 from kivy.clock import Clock
+from .theme import COLORS
 
 from kivy_desktop.button import DButton
 
@@ -13,6 +14,7 @@ class DInt(BoxLayout):
     max_value = NumericProperty(99999)
     step = NumericProperty(1)
     background_radius = NumericProperty(dp(6))
+    background_color = ListProperty(COLORS['back2'])
     
     hint_text = StringProperty("")
     validation_message = StringProperty("")
@@ -38,7 +40,7 @@ class DInt(BoxLayout):
             multiline=False,
             halign='center',
             input_filter='int',
-            background_color=[0.05, 0.05, 0.05, 1],
+            background_color=self.background_color,
             foreground_color=[1, 1, 1, 1],
             cursor_color=[1, 1, 1, 1],
         )
