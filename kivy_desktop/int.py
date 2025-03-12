@@ -14,9 +14,12 @@ class DInt(BoxLayout):
     max_value = NumericProperty(99999)
     step = NumericProperty(1)
     background_radius = NumericProperty(dp(6))
+    border_line_width = NumericProperty(dp(1.2))
+    plus_minus_width = NumericProperty(dp(40))
+
     background_color = ListProperty(COLORS['back2'])
     border_color = ListProperty(COLORS['border'])
-    plus_minus_width = NumericProperty(dp(40))
+    text_color = ListProperty(COLORS['font'])
     
     hint_text = StringProperty("")
     validation_message = StringProperty("")
@@ -33,6 +36,7 @@ class DInt(BoxLayout):
             text="-",
             size_hint=(None, 1),
             width=self.plus_minus_width,
+            border_color=self.border_color,
             release_callback=self.decrement,
             background_radius=[self.background_radius, 0, 0, self.background_radius]
         )
@@ -45,16 +49,16 @@ class DInt(BoxLayout):
             background_normal='',
             background_active='',
             border=[0, 0, 0, 0],
-            border_color=self.border_color,
             background_color=self.background_color,
-            foreground_color=COLORS['font'],
-            cursor_color=COLORS['font'],
+            foreground_color=self.text_color,
+            cursor_color=[1, 1, 1, 1],
         )
         
         self.increment_btn = DButton(
             text="+",
             size_hint=(None, 1),
             width=self.plus_minus_width,
+            border_color=self.border_color,
             release_callback=self.increment,
             background_radius=[0, self.background_radius, self.background_radius, 0]
         )

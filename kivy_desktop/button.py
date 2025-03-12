@@ -8,15 +8,16 @@ from kivy.uix.label import Label
 from .theme import COLORS
 
 class DButton(BoxLayout):
-    text = StringProperty('Button')
+    
     is_pressed = BooleanProperty(False)
     is_hover = BooleanProperty(False)
-    release_callback = ObjectProperty(None)
-    internal_padding = ListProperty([dp(10), dp(10), dp(10), dp(10)])
     
-    icon_source = StringProperty('')
     icon_size = NumericProperty(dp(24))
     icon_text_spacing = NumericProperty(dp(10))
+    border_line_width = NumericProperty(dp(1.2))
+
+    text = StringProperty('Button')
+    icon_source = StringProperty('')
     icon_placement = StringProperty('left')
     content_alignment = StringProperty('center')
     
@@ -25,9 +26,12 @@ class DButton(BoxLayout):
     border_color = ListProperty(COLORS['border'])
     border_color_down = ListProperty(COLORS['seleted'])
     font_color = ListProperty(COLORS['font'])
-    
+
     background_radius = ListProperty([dp(6), dp(6), dp(6), dp(6)])
-    border_line_width = NumericProperty(dp(1.2))
+    internal_padding = ListProperty([dp(10), dp(10), dp(10), dp(10)])
+
+    release_callback = ObjectProperty(None)
+    
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
