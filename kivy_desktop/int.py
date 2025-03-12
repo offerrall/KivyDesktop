@@ -28,6 +28,7 @@ class DInt(BoxLayout):
         self.decrement_btn = DButton(
             text="-",
             size_hint=(None, 1),
+            width=dp(40),
             release_callback=self.decrement,
             background_radius=[self.background_radius, 0, 0, self.background_radius]
         )
@@ -37,7 +38,7 @@ class DInt(BoxLayout):
             multiline=False,
             halign='center',
             input_filter='int',
-            background_color=[0.12, 0.14, 0.17, 1],
+            background_color=[0.05, 0.05, 0.05, 1],
             foreground_color=[1, 1, 1, 1],
             cursor_color=[1, 1, 1, 1],
         )
@@ -45,6 +46,7 @@ class DInt(BoxLayout):
         self.increment_btn = DButton(
             text="+",
             size_hint=(None, 1),
+            width=dp(40),
             release_callback=self.increment,
             background_radius=[0, self.background_radius, self.background_radius, 0]
         )
