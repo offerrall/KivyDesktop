@@ -44,7 +44,7 @@ class DInt(BoxLayout):
         self.drag_start_x = 0
         self.drag_start_value = 0
         self.drag_active = False
-        self.drag_touch_id = None  # Almacena el ID del toque que inició el drag
+        self.drag_touch_id = None
         
         self.decrement_btn = DButton(
             text="-",
