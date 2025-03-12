@@ -27,7 +27,7 @@ scroll_view = DScrollView(size_hint=(1, 1))
 scroll_view.layout.padding = [dp(20), dp(20), dp(20), dp(20)]
 
 
-for i in range(100):
+for i in range(30):
     if i < 2:
         continue
     

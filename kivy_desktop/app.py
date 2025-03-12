@@ -20,6 +20,7 @@ class DApp(App):
         return self.container
     
     def on_start(self):
+        return
         self._update_event = Clock.schedule_interval(self._force_update, 1/self.fps)
     
     def on_stop(self):
