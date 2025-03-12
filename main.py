@@ -56,7 +56,8 @@ for i in range(10):
         height=HEIGHT,
         min_value=-10,
         max_value=10,
-        value=5
+        value=5,
+        border_line_width=dp(1.2),
     )
     
     int_input.bind(value=lambda instance, value: print(value))

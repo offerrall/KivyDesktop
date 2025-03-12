@@ -20,6 +20,9 @@ class DInt(BoxLayout):
     background_color = ListProperty(COLORS['back2'])
     border_color = ListProperty(COLORS['border'])
     text_color = ListProperty(COLORS['font'])
+    plus_minus_border_color_down = ListProperty(COLORS['seleted'])
+    error_color = ListProperty(COLORS['error'])
+    plus_minus_background_color = ListProperty(COLORS['back1'])
     
     hint_text = StringProperty("")
     validation_message = StringProperty("")
@@ -37,7 +40,11 @@ class DInt(BoxLayout):
             size_hint=(None, 1),
             width=self.plus_minus_width,
             border_color=self.border_color,
+            border_color_down=self.plus_minus_border_color_down,
             release_callback=self.decrement,
+            border_line_width=self.border_line_width,
+            background_color=self.plus_minus_background_color,
+            background_color_down=self.background_color,
             background_radius=[self.background_radius, 0, 0, self.background_radius]
         )
         
@@ -59,7 +66,11 @@ class DInt(BoxLayout):
             size_hint=(None, 1),
             width=self.plus_minus_width,
             border_color=self.border_color,
+            border_color_down=self.plus_minus_border_color_down,
             release_callback=self.increment,
+            border_line_width=self.border_line_width,
+            background_color=self.plus_minus_background_color,
+            background_color_down=self.background_color,
             background_radius=[0, self.background_radius, self.background_radius, 0]
         )
         
@@ -123,10 +134,21 @@ class DInt(BoxLayout):
             self.on_change_callback(self, value)
     
     def update_buttons_state(self, *args):
-        self.decrement_btn.disabled = self.value <= self.min_value
-        self.increment_btn.disabled = self.value >= self.max_value
+        decrement_disabled = self.value <= self.min_value
+        increment_disabled = self.value >= self.max_value
+
+        if decrement_disabled:
+            self.decrement_btn.border_color_down = self.error_color
+            self.decrement_btn.border_color = self.error_color
+        else:
+            if self.decrement_btn.border_color_down == self.error_color:
+                self.decrement_btn.border_color_down = self.plus_minus_border_color_down
+                self.decrement_btn.border_color = self.border_color
         
-        if hasattr(self.decrement_btn, 'opacity'):
-            self.decrement_btn.opacity = 0.5 if self.decrement_btn.disabled else 1.0
-        if hasattr(self.increment_btn, 'opacity'):
-            self.increment_btn.opacity = 0.5 if self.increment_btn.disabled else 1.0
+        if increment_disabled:
+            self.increment_btn.border_color_down = self.error_color
+            self.increment_btn.border_color = self.error_color
+        else:
+            if self.increment_btn.border_color_down == self.error_color:
+                self.increment_btn.border_color_down = self.plus_minus_border_color_down
+                self.increment_btn.border_color = self.border_color
