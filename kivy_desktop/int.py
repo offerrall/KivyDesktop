@@ -45,6 +45,7 @@ class DInt(BoxLayout):
             border_line_width=self.border_line_width,
             background_color=self.plus_minus_background_color,
             background_color_down=self.background_color,
+            font_color=self.text_color,
             background_radius=[self.background_radius, 0, 0, self.background_radius]
         )
         
@@ -71,6 +72,7 @@ class DInt(BoxLayout):
             border_line_width=self.border_line_width,
             background_color=self.plus_minus_background_color,
             background_color_down=self.background_color,
+            font_color=self.text_color,
             background_radius=[0, self.background_radius, self.background_radius, 0]
         )
         
