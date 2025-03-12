@@ -1,8 +1,9 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
-from kivy.properties import NumericProperty, StringProperty, ObjectProperty, ListProperty
+from kivy.properties import NumericProperty, StringProperty, ObjectProperty, ListProperty, BooleanProperty
 from kivy.metrics import dp
 from kivy.clock import Clock
+from kivy.core.window import Window
 from .theme import COLORS
 
 from kivy_desktop.button import DButton
@@ -27,6 +28,9 @@ class DInt(BoxLayout):
     
     on_change_callback = ObjectProperty(None)
     
+    is_dragging = BooleanProperty(False)
+    drag_sensitivity = NumericProperty(0.1)
+    
     def __init__(self, **kwargs):
         super(DInt, self).__init__(**kwargs)
         self.orientation = 'horizontal'
@@ -35,6 +39,10 @@ class DInt(BoxLayout):
         
         self.decrement_error_timer = None
         self.increment_error_timer = None
+        
+        self.drag_start_x = 0
+        self.drag_start_value = 0
+        self.drag_active = False
         
         self.decrement_btn = DButton(
             text="-",
@@ -84,6 +92,9 @@ class DInt(BoxLayout):
         self.bind(value=self.on_value_changed)
         self.bind(min_value=self.update_buttons_state)
         self.bind(max_value=self.update_buttons_state)
+        
+        Window.bind(mouse_pos=self.on_mouse_move)
+        Window.bind(on_touch_up=self.on_window_touch_up)
         
         Clock.schedule_once(self.update_buttons_state, 0)
         Clock.schedule_once(self.center_text_vertically, 0)
@@ -184,3 +195,73 @@ class DInt(BoxLayout):
                 self.increment_btn.border_color = self.border_color
                 self.increment_error_timer.cancel()
                 self.increment_error_timer = None
+    
+    def on_touch_down(self, touch):
+
+        if self.text_input.collide_point(*touch.pos) and not touch.is_double_tap:
+            self.start_drag(touch)
+            return True
+        
+        return super(DInt, self).on_touch_down(touch)
+    
+    def start_drag(self, touch):
+
+        self.drag_start_x = touch.x
+        self.drag_start_value = self.value
+        self.drag_active = True
+        self.is_dragging = True
+
+        touch.grab(self)
+    
+    def on_touch_move(self, touch):
+        if touch.grab_current is self and self.drag_active:
+
+            delta_x = touch.x - self.drag_start_x
+            delta_value = int(delta_x / (dp(10) * self.drag_sensitivity))
+            
+            new_value = self.drag_start_value + delta_value
+            
+            new_value = max(self.min_value, min(new_value, self.max_value))
+            
+            if new_value != self.value:
+                self.value = new_value
+            
+            return True
+        
+        return super(DInt, self).on_touch_move(touch)
+    
+    def on_touch_up(self, touch):
+        if touch.grab_current is self:
+            touch.ungrab(self)
+            self.drag_active = False
+            self.is_dragging = False
+            return True
+        
+        return super(DInt, self).on_touch_up(touch)
+    
+    def on_mouse_move(self, window, pos):
+
+        if self.drag_active:
+            x, y = self.to_widget(*pos)
+            delta_x = x - self.drag_start_x
+            
+            delta_value = int(delta_x / (dp(10) * self.drag_sensitivity))
+            
+            new_value = self.drag_start_value + delta_value
+            
+            new_value = max(self.min_value, min(new_value, self.max_value))
+            
+            if new_value != self.value:
+                self.value = new_value
+    
+    def on_window_touch_up(self, window, touch):
+
+        if self.drag_active:
+            self.drag_active = False
+            self.is_dragging = False
+    
+    def on_parent(self, widget, parent):
+        if parent is None:
+ 
+            Window.unbind(mouse_pos=self.on_mouse_move)
+            Window.unbind(on_touch_up=self.on_window_touch_up)

@@ -47,7 +47,7 @@ for i in range(10):
         size_hint_x=1,
         height=HEIGHT,
         min_value=-10,
-        max_value=10,
+        max_value=1000,
         value=5,
         border_line_width=dp(1.2),
     )
