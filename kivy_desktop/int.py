@@ -13,6 +13,7 @@ class DInt(BoxLayout):
     min_value = NumericProperty(-99999)
     max_value = NumericProperty(99999)
     step = NumericProperty(1)
+
     background_radius = NumericProperty(dp(6))
     border_line_width = NumericProperty(dp(1.2))
     plus_minus_width = NumericProperty(dp(40))
@@ -23,9 +24,6 @@ class DInt(BoxLayout):
     plus_minus_border_color_down = ListProperty(COLORS['seleted'])
     error_color = ListProperty(COLORS['error'])
     plus_minus_background_color = ListProperty(COLORS['back1'])
-    
-    hint_text = StringProperty("")
-    validation_message = StringProperty("")
     
     on_change_callback = ObjectProperty(None)
     
@@ -126,7 +124,7 @@ class DInt(BoxLayout):
         self.increment_btn.border_hover = self.error_color
         self.increment_btn.border_color = self.error_color
         
-        self.increment_error_timer = Clock.schedule_once(self.reset_increment_state, 0.5)
+        self.increment_error_timer = Clock.schedule_once(self.reset_increment_state, 0.2)
     
     def set_decrement_error_state(self):
         if self.decrement_error_timer:
@@ -135,7 +133,7 @@ class DInt(BoxLayout):
         self.decrement_btn.border_hover = self.error_color
         self.decrement_btn.border_color = self.error_color
 
-        self.decrement_error_timer = Clock.schedule_once(self.reset_decrement_state, 0.5)
+        self.decrement_error_timer = Clock.schedule_once(self.reset_decrement_state, 0.2)
     
     def reset_increment_state(self, dt):
         self.increment_btn.border_hover = self.plus_minus_border_color_down
