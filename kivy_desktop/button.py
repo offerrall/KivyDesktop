@@ -11,6 +11,7 @@ class DButton(BoxLayout):
     is_pressed = BooleanProperty(False)
     is_hover = BooleanProperty(False)
     release_callback = ObjectProperty(None)
+    internal_padding = ListProperty([dp(10), dp(10), dp(10), dp(10)])
     
     icon_source = StringProperty('')
     icon_size = NumericProperty(dp(24))
