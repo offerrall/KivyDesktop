@@ -24,6 +24,7 @@ class DButton(BoxLayout):
     background_color_down = ListProperty(COLORS['back2'])
     border_color = ListProperty(COLORS['border'])
     border_color_down = ListProperty(COLORS['seleted'])
+    font_color = ListProperty(COLORS['font'])
     
     background_radius = ListProperty([dp(6), dp(6), dp(6), dp(6)])
     border_line_width = NumericProperty(dp(1.2))
@@ -56,6 +57,7 @@ class DButton(BoxLayout):
                 size_hint=(None, None),
                 size=self.label_texture_size,
                 valign='middle',
+                color=self.font_color,
                 pos_hint={'center_y': 0.5}  
             )
             self.bind(text=self._update_label_text)
