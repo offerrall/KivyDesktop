@@ -12,6 +12,7 @@ class DInt(BoxLayout):
     min_value = NumericProperty(-99999)
     max_value = NumericProperty(99999)
     step = NumericProperty(1)
+    background_radius = NumericProperty(dp(6))
     
     hint_text = StringProperty("")
     validation_message = StringProperty("")
@@ -28,26 +29,24 @@ class DInt(BoxLayout):
             text="-",
             size_hint=(None, 1),
             release_callback=self.decrement,
-            background_radius=[dp(6), 0, 0, dp(6)]
+            background_radius=[self.background_radius, 0, 0, self.background_radius]
         )
         
         self.text_input = TextInput(
             text=str(self.value),
             multiline=False,
             halign='center',
-            size_hint=(1, 1),
             input_filter='int',
             background_color=[0.12, 0.14, 0.17, 1],
             foreground_color=[1, 1, 1, 1],
             cursor_color=[1, 1, 1, 1],
-            padding=[dp(10), dp(10), 0, 0]
         )
         
         self.increment_btn = DButton(
             text="+",
             size_hint=(None, 1),
             release_callback=self.increment,
-            background_radius=[0, dp(6), dp(6), 0]
+            background_radius=[0, self.background_radius, self.background_radius, 0]
         )
         
         self.add_widget(self.decrement_btn)
@@ -62,19 +61,16 @@ class DInt(BoxLayout):
         Clock.schedule_once(self.update_buttons_state, 0)
     
     def increment(self, instance):
-
         new_value = self.value + self.step
         if new_value <= self.max_value:
             self.value = new_value
     
     def decrement(self, instance):
-
         new_value = self.value - self.step
         if new_value >= self.min_value:
             self.value = new_value
     
     def on_text_changed(self, instance, text):
-
         if text == '':
             return
         
@@ -84,14 +80,11 @@ class DInt(BoxLayout):
                 if value != self.value:
                     self.value = value
             else:
-
                 Clock.schedule_once(lambda dt: setattr(self.text_input, 'text', str(self.value)), 0)
         except ValueError:
-
             Clock.schedule_once(lambda dt: setattr(self.text_input, 'text', str(self.value)), 0)
     
     def on_value_changed(self, instance, value):
-
         if self.text_input.text != str(value):
             self.text_input.text = str(value)
         
@@ -101,7 +94,6 @@ class DInt(BoxLayout):
             self.on_change_callback(self, value)
     
     def update_buttons_state(self, *args):
-
         self.decrement_btn.disabled = self.value <= self.min_value
         self.increment_btn.disabled = self.value >= self.max_value
         
