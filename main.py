@@ -27,11 +27,13 @@ scroll_view = DScrollView(size_hint=(1, 1))
 scroll_view.layout.padding = [dp(20), dp(20), dp(20), dp(20)]
 
 
-for i in range(10):
+for i in range(100):
     if i < 2:
         continue
     
     HEIGHT = dp(i * 10)
+    if HEIGHT > 50:
+        HEIGHT = dp(30)
     print(HEIGHT)
     
     btn = DButton(

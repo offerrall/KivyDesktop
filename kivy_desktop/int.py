@@ -44,6 +44,7 @@ class DInt(BoxLayout):
         self.drag_start_x = 0
         self.drag_start_value = 0
         self.drag_active = False
+        self.drag_touch_id = None  # Almacena el ID del toque que inició el drag
         
         self.decrement_btn = DButton(
             text="-",
@@ -95,6 +96,8 @@ class DInt(BoxLayout):
         self.bind(max_value=self.update_buttons_state)
         
         Window.bind(mouse_pos=self.on_mouse_move)
+        Window.bind(on_touch_down=self.on_window_touch_down)
+        Window.bind(on_touch_move=self.on_window_touch_move)
         Window.bind(on_touch_up=self.on_window_touch_up)
         
         Clock.schedule_once(self.update_buttons_state, 0)
@@ -197,51 +200,57 @@ class DInt(BoxLayout):
                 self.increment_error_timer.cancel()
                 self.increment_error_timer = None
     
-    def on_touch_down(self, touch):
-
-        if self.text_input.collide_point(*touch.pos) and not touch.is_double_tap:
-            self.start_drag(touch)
-            return True
+    def on_window_touch_down(self, window, touch):
+        local_pos = self.to_widget(*touch.pos)
         
-        if self.text_input.collide_point(*touch.pos) and touch.is_double_tap:
-            Window.set_system_cursor('ibeam')
-                    
-        return super(DInt, self).on_touch_down(touch)
+        if self.text_input.collide_point(*self.text_input.to_widget(*touch.pos)):
+            if touch.is_double_tap:
+                Window.set_system_cursor('ibeam')
+                return False
+            else:
+                self.start_drag(touch)
+                return True
+        
+        return False
     
     def start_drag(self, touch):
-
+        self.drag_touch_id = touch.uid
+        
+        self.text_input.readonly = True
+        
+        Window.set_system_cursor('size_we')
+        
         self.drag_start_x = touch.x
         self.drag_start_value = self.value
         self.drag_active = True
         self.is_dragging = True
-
-        touch.grab(self)
     
-    def on_touch_move(self, touch):
-        if touch.grab_current is self and self.drag_active:
+    def on_window_touch_move(self, window, touch):
 
+        if self.drag_active and touch.uid == self.drag_touch_id:
             delta_x = touch.x - self.drag_start_x
             delta_value = int(delta_x / (dp(10) * self.drag_sensitivity))
             
             new_value = self.drag_start_value + delta_value
-            
             new_value = max(self.min_value, min(new_value, self.max_value))
             
             if new_value != self.value:
                 self.value = new_value
-            
-            return True
-        
-        return super(DInt, self).on_touch_move(touch)
     
-    def on_touch_up(self, touch):
-        if touch.grab_current is self:
-            touch.ungrab(self)
+    def on_window_touch_up(self, window, touch):
+
+        if self.drag_active and touch.uid == self.drag_touch_id:
             self.drag_active = False
             self.is_dragging = False
-            return True
-        
-        return super(DInt, self).on_touch_up(touch)
+            self.drag_touch_id = None
+            
+            self.text_input.readonly = False
+            
+            if not self.is_hover:
+                Window.set_system_cursor('arrow')
+            
+            if abs(touch.x - self.drag_start_x) < dp(3):
+                self.text_input.focus = True
     
     def on_mouse_move(self, window, pos):
         widget_pos = self.to_widget(*pos)
@@ -250,7 +259,7 @@ class DInt(BoxLayout):
             Window.set_system_cursor('size_we')
             self.is_hover = True
         else:
-            if self.is_hover:
+            if self.is_hover and not self.drag_active:
                 Window.set_system_cursor('arrow')
                 self.is_hover = False
         
@@ -261,20 +270,15 @@ class DInt(BoxLayout):
             delta_value = int(delta_x / (dp(10) * self.drag_sensitivity))
             
             new_value = self.drag_start_value + delta_value
-            
             new_value = max(self.min_value, min(new_value, self.max_value))
             
             if new_value != self.value:
                 self.value = new_value
     
-    def on_window_touch_up(self, window, touch):
-
-        if self.drag_active:
-            self.drag_active = False
-            self.is_dragging = False
-    
     def on_parent(self, widget, parent):
         if parent is None:
- 
+
             Window.unbind(mouse_pos=self.on_mouse_move)
+            Window.unbind(on_touch_down=self.on_window_touch_down)
+            Window.unbind(on_touch_move=self.on_window_touch_move)
             Window.unbind(on_touch_up=self.on_window_touch_up)
