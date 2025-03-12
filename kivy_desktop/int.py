@@ -29,6 +29,7 @@ class DInt(BoxLayout):
     on_change_callback = ObjectProperty(None)
     
     is_dragging = BooleanProperty(False)
+    is_hover = BooleanProperty(False)
     drag_sensitivity = NumericProperty(0.1)
     
     def __init__(self, **kwargs):
@@ -202,6 +203,9 @@ class DInt(BoxLayout):
             self.start_drag(touch)
             return True
         
+        if self.text_input.collide_point(*touch.pos) and touch.is_double_tap:
+            Window.set_system_cursor('ibeam')
+                    
         return super(DInt, self).on_touch_down(touch)
     
     def start_drag(self, touch):
@@ -240,7 +244,16 @@ class DInt(BoxLayout):
         return super(DInt, self).on_touch_up(touch)
     
     def on_mouse_move(self, window, pos):
-
+        widget_pos = self.to_widget(*pos)
+        
+        if self.text_input.collide_point(*self.text_input.to_widget(*pos)):
+            Window.set_system_cursor('size_we')
+            self.is_hover = True
+        else:
+            if self.is_hover:
+                Window.set_system_cursor('arrow')
+                self.is_hover = False
+        
         if self.drag_active:
             x, y = self.to_widget(*pos)
             delta_x = x - self.drag_start_x
