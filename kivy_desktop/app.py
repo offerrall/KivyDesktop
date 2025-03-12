@@ -3,9 +3,9 @@ from kivy.config import Config
 
 class DApp(App):
 
-    def __init__(self, container, **kwargs):
+    def __init__(self, main_container, **kwargs):
         Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
-        self.container = container
+        self.container = main_container
         super(DApp, self).__init__(**kwargs)
 
     def build(self):
