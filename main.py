@@ -6,7 +6,7 @@ from kivy_desktop.scroll import DScrollView
 from kivy_desktop.app import DApp
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
-
+import random
 
 class BackgroundWidget(BoxLayout):
     def __init__(self, **kwargs):
@@ -46,6 +46,7 @@ for i in range(5):
         min_value=-10,
         max_value=1000,
         value=5,
+        use_float=bool(random.randint(0, 1)),
         border_line_width=dp(1.2),
     )
     
@@ -58,7 +59,7 @@ for i in range(5):
 
 background.add_widget(scroll_view)
 
-app = DApp(main_container=background, fps=144, title="Kivy Desktop Test")
+app = DApp(main_container=background, title="Kivy Desktop Test")
 
 if __name__ == "__main__":
     app.run()

@@ -5,6 +5,7 @@ from kivy.core.window import Window
 from kivy.clock import Clock
 from kivy.uix.image import Image
 from kivy.uix.label import Label
+
 from .theme import COLORS
 
 class DButton(BoxLayout):

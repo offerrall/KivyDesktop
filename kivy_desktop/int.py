@@ -1,12 +1,12 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
-from kivy.properties import NumericProperty, StringProperty, ObjectProperty, ListProperty, BooleanProperty
+from kivy.properties import NumericProperty, ObjectProperty, ListProperty, BooleanProperty
 from kivy.metrics import dp
 from kivy.clock import Clock
 from kivy.core.window import Window
-from .theme import COLORS
 
-from kivy_desktop.button import DButton
+from .theme import COLORS
+from .button import DButton
 
 class DInt(BoxLayout):
 
@@ -14,6 +14,9 @@ class DInt(BoxLayout):
     min_value = NumericProperty(-99999)
     max_value = NumericProperty(99999)
     step = NumericProperty(1)
+    
+    use_float = BooleanProperty(False)
+    precision = NumericProperty(2)
 
     background_radius = NumericProperty(dp(6))
     border_line_width = NumericProperty(dp(1.2))
@@ -61,7 +64,7 @@ class DInt(BoxLayout):
         )
         
         self.text_input = TextInput(
-            text=str(self.value),
+            text=self.format_value(self.value),
             multiline=False,
             halign='center',
             background_normal='',
@@ -94,6 +97,8 @@ class DInt(BoxLayout):
         self.bind(value=self.on_value_changed)
         self.bind(min_value=self.update_buttons_state)
         self.bind(max_value=self.update_buttons_state)
+        self.bind(precision=self.on_precision_changed)
+        self.bind(use_float=self.on_use_float_changed)
         
         Window.bind(mouse_pos=self.on_mouse_move)
         Window.bind(on_touch_down=self.on_window_touch_down)
@@ -102,6 +107,20 @@ class DInt(BoxLayout):
         
         Clock.schedule_once(self.update_buttons_state, 0)
         Clock.schedule_once(self.center_text_vertically, 0)
+
+    def format_value(self, value):
+        if self.use_float:
+            format_str = f"{{:.{self.precision}f}}"
+            return format_str.format(value)
+        else:
+            return str(int(value))
+            
+    def on_precision_changed(self, instance, precision):
+        if self.use_float:
+            self.text_input.text = self.format_value(self.value)
+            
+    def on_use_float_changed(self, instance, use_float):
+        self.text_input.text = self.format_value(self.value)
 
     def center_text_vertically(self, dt):
         available_space = self.text_input.height - self.text_input.minimum_height
@@ -164,20 +183,27 @@ class DInt(BoxLayout):
             return
         if text == '-':
             return
-        
+        if self.use_float and text.count('.') == 1 and text.endswith('.'):
+            return
+            
         try:
-            value = int(text)
+            if self.use_float:
+                value = float(text)
+            else:
+                value = int(text)
+                
             if self.min_value <= value <= self.max_value:
                 if value != self.value:
                     self.value = value
             else:
-                Clock.schedule_once(lambda dt: setattr(self.text_input, 'text', str(self.value)), 0)
+                Clock.schedule_once(lambda dt: setattr(self.text_input, 'text', self.format_value(self.value)), 0)
         except ValueError:
-            Clock.schedule_once(lambda dt: setattr(self.text_input, 'text', str(self.value)), 0)
+            Clock.schedule_once(lambda dt: setattr(self.text_input, 'text', self.format_value(self.value)), 0)
     
     def on_value_changed(self, instance, value):
-        if self.text_input.text != str(value):
-            self.text_input.text = str(value)
+        formatted_value = self.format_value(value)
+        if self.text_input.text != formatted_value:
+            self.text_input.text = formatted_value
         
         if self.on_change_callback:
             self.on_change_callback(self, value)
@@ -230,9 +256,15 @@ class DInt(BoxLayout):
 
         if self.drag_active and touch.uid == self.drag_touch_id:
             delta_x = touch.x - self.drag_start_x
-            delta_value = int(delta_x / (dp(10) * self.drag_sensitivity))
             
-            new_value = self.drag_start_value + delta_value
+            if self.use_float:
+                sensitivity_factor = 10 * self.step if self.step >= 1 else 1
+                delta_value = (delta_x / (dp(10) * self.drag_sensitivity)) * self.step / sensitivity_factor
+                new_value = self.drag_start_value + delta_value
+            else:
+                delta_value = int(delta_x / (dp(10) * self.drag_sensitivity))
+                new_value = self.drag_start_value + delta_value
+            
             new_value = max(self.min_value, min(new_value, self.max_value))
             
             if new_value != self.value:
@@ -268,9 +300,14 @@ class DInt(BoxLayout):
             x, y = self.to_widget(*pos)
             delta_x = x - self.drag_start_x
             
-            delta_value = int(delta_x / (dp(10) * self.drag_sensitivity))
+            if self.use_float:
+                sensitivity_factor = 10 * self.step if self.step >= 1 else 1
+                delta_value = (delta_x / (dp(10) * self.drag_sensitivity)) * self.step / sensitivity_factor
+                new_value = self.drag_start_value + delta_value
+            else:
+                delta_value = int(delta_x / (dp(10) * self.drag_sensitivity))
+                new_value = self.drag_start_value + delta_value
             
-            new_value = self.drag_start_value + delta_value
             new_value = max(self.min_value, min(new_value, self.max_value))
             
             if new_value != self.value:
