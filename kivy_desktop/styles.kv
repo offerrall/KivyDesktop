@@ -31,9 +31,17 @@
 
 <DInt>:
 
-    canvas:        
+<DInt>:
+    canvas:
+
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            pos: [self.x + root.plus_minus_width, self.y]
+            size: [self.width - (root.plus_minus_width * 2), self.height]
+            
         Color:
             rgba: root.border_color
         Line:
-            rounded_rectangle: [self.x, self.y, self.width, self.height] + [dp(30), dp(30), dp(30), dp(30)]
+            rounded_rectangle: [self.x, self.y, self.width, self.height, dp(6), dp(6), dp(6), dp(6)]
             width: root.border_line_width

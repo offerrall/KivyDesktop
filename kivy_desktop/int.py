@@ -67,7 +67,7 @@ class DInt(BoxLayout):
             background_normal='',
             background_active='',
             border=[0, 0, 0, 0],
-            background_color=self.background_color,
+            background_color=[0, 0, 0, 0],
             foreground_color=self.text_color,
             cursor_color=[1, 1, 1, 1],
         )
