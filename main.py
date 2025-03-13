@@ -12,7 +12,7 @@ class BackgroundWidget(BoxLayout):
     def __init__(self, **kwargs):
         super(BackgroundWidget, self).__init__(**kwargs)
         with self.canvas.before:
-            Color(0.25, 0.25, 0.25, 1)  # Rojo (R=1, G=0, B=0, A=1)
+            Color(0.25, 0.25, 0.25, 1)
             self.rect = Rectangle(pos=self.pos, size=self.size)
         
         self.bind(pos=self._update_rect, size=self._update_rect)
