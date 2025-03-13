@@ -1,7 +1,7 @@
 from kivy.metrics import dp
 from kivy.graphics import Color, Rectangle
 from kivy_desktop.button import DButton
-from kivy_desktop.int import DNumeric
+from kivy_desktop.numeric import DNumeric
 from kivy_desktop.scroll import DScrollView
 from kivy_desktop.app import DApp
 from kivy.uix.widget import Widget
