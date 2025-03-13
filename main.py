@@ -1,7 +1,7 @@
 from kivy.metrics import dp
 from kivy.graphics import Color, Rectangle
 from kivy_desktop.button import DButton
-from kivy_desktop.int import DInt
+from kivy_desktop.int import DNumeric
 from kivy_desktop.scroll import DScrollView
 from kivy_desktop.app import DApp
 from kivy.uix.widget import Widget
@@ -39,7 +39,7 @@ for i in range(5):
         release_callback=lambda instance: print(instance.text)
     )
     
-    int_input = DInt(
+    int_input = DNumeric(
         size_hint_y=None,
         size_hint_x=1,
         height=HEIGHT,

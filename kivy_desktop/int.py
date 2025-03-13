@@ -8,7 +8,7 @@ from kivy.core.window import Window
 from .theme import COLORS
 from .button import DButton
 
-class DInt(BoxLayout):
+class DNumeric(BoxLayout):
 
     value = NumericProperty(0)
     min_value = NumericProperty(-99999)
@@ -16,7 +16,7 @@ class DInt(BoxLayout):
     step = NumericProperty(1)
     
     use_float = BooleanProperty(False)
-    precision = NumericProperty(2)
+    float_precision = NumericProperty(2)
 
     background_radius = NumericProperty(dp(6))
     border_line_width = NumericProperty(dp(1.2))
@@ -36,7 +36,7 @@ class DInt(BoxLayout):
     drag_sensitivity = NumericProperty(0.1)
     
     def __init__(self, **kwargs):
-        super(DInt, self).__init__(**kwargs)
+        super(DNumeric, self).__init__(**kwargs)
         self.orientation = 'horizontal'
         self.spacing = dp(0)
         self.size_hint_y = None
@@ -97,7 +97,7 @@ class DInt(BoxLayout):
         self.bind(value=self.on_value_changed)
         self.bind(min_value=self.update_buttons_state)
         self.bind(max_value=self.update_buttons_state)
-        self.bind(precision=self.on_precision_changed)
+        self.bind(float_precision=self.on_float_precision_changed)
         self.bind(use_float=self.on_use_float_changed)
         
         Window.bind(mouse_pos=self.on_mouse_move)
@@ -110,12 +110,12 @@ class DInt(BoxLayout):
 
     def format_value(self, value):
         if self.use_float:
-            format_str = f"{{:.{self.precision}f}}"
+            format_str = f"{{:.{self.float_precision}f}}"
             return format_str.format(value)
         else:
             return str(int(value))
             
-    def on_precision_changed(self, instance, precision):
+    def on_float_precision_changed(self, instance, float_precision):
         if self.use_float:
             self.text_input.text = self.format_value(self.value)
             
