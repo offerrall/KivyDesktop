@@ -7,10 +7,10 @@ A collection of stylized widgets for creating visually appealing desktop applica
 ## Features
 
 - **DButton**: Customizable buttons with icon support, different styles, and hover effects.
-- **DNumeric**: Numeric control with adjustment via drag and +/- buttons.
+- **DNumeric**: Numeric control with adjustment via drag, text input or +/- buttons.
 - **DSpinner**: Stylized dropdown menu.
 - **DSwitch**: Stylized ON/OFF switch.
-- **DScrollView**: Enhanced scroll view.
+- **DScrollView**: Enhanced scroll view for desktop applications.
 - **Theme**: Theme system with customizable colors.
 
 ## Installation
