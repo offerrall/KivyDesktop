@@ -10,8 +10,7 @@ from .button import DButton
 from .theme import COLORS
 
 class DSpinnerOption(DButton):
-    """Widget for each option in the dropdown"""
-    
+
     def __init__(self, **kwargs):
         kwargs.setdefault('size_hint_y', None)
         kwargs.setdefault('height', dp(30))
@@ -20,39 +19,39 @@ class DSpinnerOption(DButton):
         super(DSpinnerOption, self).__init__(**kwargs)
 
 class DSpinner(BoxLayout):
-    """Custom Spinner widget that allows selecting from a dropdown list"""
+
     text = StringProperty('')
     values = ListProperty([])
     is_open = BooleanProperty(False)
     is_hover = BooleanProperty(False)
     
-    # Styling properties
     background_color = ListProperty(COLORS['back1'])
     border_color = ListProperty(COLORS['border'])
     border_hover = ListProperty(COLORS['seleted'])
+    border_width = NumericProperty(dp(1.2))
+    background_color_down = ListProperty(COLORS['back2'])
     text_color = ListProperty(COLORS['font'])
     option_height = NumericProperty(dp(40))
     dropdown_max_height = NumericProperty(dp(200))
     background_radius = ListProperty([dp(6), dp(6), dp(6), dp(6)])
     
-    # Callbacks
     on_select_callback = ObjectProperty(None)
     
     def __init__(self, **kwargs):
         super(DSpinner, self).__init__(**kwargs)
         Window.bind(mouse_pos=self.on_mouse_pos)
         
-        # Default size hint and values
         self.size_hint_y = None
         self.height = dp(40)
         
-        # Create the main button
         self.drop_button = DButton(
             text=self.text or 'Select an option',
-            icon_source='./down-arrow.png',  # Make sure this file exists
+            icon_source='./down-arrow.png',
             icon_placement='right',
             icon_size=dp(14),
+            border_line_width=self.border_width,
             background_color=self.background_color,
+            background_color_down=self.background_color_down,
             border_color=self.border_color,
             border_hover=self.border_hover,
             font_color=self.text_color,
@@ -61,19 +60,18 @@ class DSpinner(BoxLayout):
         )
         self.add_widget(self.drop_button)
         
-        # Initialize the dropdown
         self.dropdown = DropDown(
             auto_width=False,
             size_hint=(None, None),
             max_height=self.dropdown_max_height
         )
+        self.dropdown.container.padding = [dp(5), dp(5), dp(5), dp(5)]
+        self.dropdown.container.spacing = self.border_width * 2
         self.dropdown.bind(on_dismiss=self._on_dropdown_dismiss)
         self.dropdown.bind(on_select=self._on_dropdown_select)
         
-        # Create the dropdown options
         self._update_dropdown_values()
         
-        # Bind property changes
         self.bind(text=self._update_button_text)
         self.bind(values=self._update_dropdown_values)
         
@@ -83,15 +81,40 @@ class DSpinner(BoxLayout):
         else:
             self.drop_button.text = 'Select an option'
     
+
     def _update_dropdown_values(self, *args):
         self.dropdown.clear_widgets()
         
-        for value in self.values:
+        # Calculate border radius for items
+        top_radius = [self.background_radius[0], self.background_radius[1], 0, 0]
+        middle_radius = [0, 0, 0, 0]
+        bottom_radius = [0, 0, self.background_radius[2], self.background_radius[3]]
+        
+        for index, value in enumerate(self.values):
+            # Determine which radius to use based on position
+            if len(self.values) == 1:
+                # If only one item, use full radius
+                item_radius = self.background_radius
+            elif index == 0:
+                # First item gets top radius
+                item_radius = top_radius
+            elif index == len(self.values) - 1:
+                # Last item gets bottom radius
+                item_radius = bottom_radius
+            else:
+                # Middle items get no radius
+                item_radius = middle_radius
+            
             option = DSpinnerOption(
                 text=value,
                 background_color=self.background_color,
+                background_color_down=self.background_color_down,
+                border_color=self.border_color,
+                border_hover=self.border_hover,
+                border_line_width=self.border_width,
                 font_color=self.text_color,
-                width=self.width
+                width=self.width,
+                background_radius=item_radius
             )
             
             # Using a lambda with default argument to avoid late binding issue
