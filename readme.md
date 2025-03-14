@@ -2,6 +2,8 @@
 
 A collection of stylized widgets for creating visually appealing desktop applications with Kivy.
 
+![readme](./readme.png)
+
 ## Features
 
 - **DButton**: Customizable buttons with icon support, different styles, and hover effects.
@@ -16,7 +18,7 @@ A collection of stylized widgets for creating visually appealing desktop applica
 ### From Source
 1. Clone the repository:
 ```bash
-git clone https://github.com/your_username/kivy_desktop.git
+git clone https://github.com/offerrall/kivy_desktop.git
 ```
 
 2. Navigate to the project directory:
