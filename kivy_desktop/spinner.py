@@ -54,14 +54,10 @@ class DSpinner(BoxLayout):
         super(DSpinner, self).__init__(**kwargs)
         Window.bind(mouse_pos=self.on_mouse_pos)
         
-        self.size_hint_y = None
-        self.height = dp(40)
-        
         self.drop_button = DButton(
             text=self.text or 'Select an option',
             icon_source='./down-arrow.png',
             icon_placement='right',
-            icon_size=dp(14),
             border_line_width=self.border_width,
             background_color=self.background_color,
             background_color_down=self.background_color_down,
