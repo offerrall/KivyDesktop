@@ -6,7 +6,7 @@ setup(
     author="Beltrán Offerrall",
     packages=find_packages(),
     package_data={
-        'kivy_desktop': ['*.kv'],
+        'kivy_desktop': ['*.kv', 'resources/images/*.png'],
     },
     install_requires=[
         'kivy',

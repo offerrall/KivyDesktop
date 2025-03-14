@@ -7,6 +7,7 @@ from kivy.uix.dropdown import DropDown
 from .button import DButton
 from .theme import COLORS
 from .state import STATE
+from .utils import get_resource_path
 
 class DSpinnerOption(DButton):
 
@@ -54,10 +55,12 @@ class DSpinner(BoxLayout):
     def __init__(self, **kwargs):
         super(DSpinner, self).__init__(**kwargs)
         Window.bind(mouse_pos=self.on_mouse_pos)
+
+        arrow_icon_path = get_resource_path('images', 'down-arrow.png')
         
         self.drop_button = DButton(
             text=self.text or 'Select an option',
-            icon_source='./down-arrow.png',
+            icon_source=arrow_icon_path,
             icon_placement='right',
             border_line_width=self.border_width,
             background_color=self.background_color,
