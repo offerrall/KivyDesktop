@@ -14,7 +14,6 @@ class DSwitch(BoxLayout):
     background_color: list \n
     border_color: list \n
     border_hover: list \n
-    active_color: list \n
     inactive_opacity: float \n
     border_line_width: int \n
     background_radius: list \n
@@ -29,7 +28,6 @@ class DSwitch(BoxLayout):
     background_color = ListProperty(COLORS['back1'])
     border_color = ListProperty(COLORS['back2'])
     border_hover = ListProperty(COLORS['seleted'])
-    active_color = ListProperty(COLORS['seleted'])
     inactive_opacity = NumericProperty(0.25)
     border_line_width = NumericProperty(dp(1.2))
     background_radius = ListProperty([dp(6), dp(6), dp(6), dp(6)])
@@ -38,14 +36,15 @@ class DSwitch(BoxLayout):
     on_change_callback = ObjectProperty(None)
     
     def __init__(self, **kwargs):
+        self.size_hint_y = None
+        self.height = kwargs.get('height', dp(30))
+        
         super(DSwitch, self).__init__(**kwargs)
         self.orientation = 'horizontal'
         self.spacing = self.spacing
         
-        # Create OFF button
         self.off_button = DButton(
             text=self.off_text,
-            size_hint=(1, 1),
             border_line_width=self.border_line_width,
             background_color=self.background_color,
             background_color_down=self.background_color,
@@ -56,10 +55,8 @@ class DSwitch(BoxLayout):
             release_callback=lambda btn: self.set_value(False)
         )
         
-        # Create ON button
         self.on_button = DButton(
             text=self.on_text,
-            size_hint=(1, 1),
             border_line_width=self.border_line_width,
             background_color=self.background_color,
             background_color_down=self.background_color,
@@ -70,17 +67,18 @@ class DSwitch(BoxLayout):
             release_callback=lambda btn: self.set_value(True)
         )
         
-        # Add the buttons to the layout
         self.add_widget(self.off_button)
         self.add_widget(self.on_button)
         
-        # Bind properties
         self.bind(value=self.update_button_states)
         self.bind(on_text=lambda instance, value: setattr(self.on_button, 'text', value))
         self.bind(off_text=lambda instance, value: setattr(self.off_button, 'text', value))
+        self.bind(height=self.update_height)
         
-        # Update initial state
         Clock.schedule_once(lambda dt: self.update_button_states(self, self.value), 0)
+    
+    def update_height(self, instance, height):
+        self.height = height
     
     def set_value(self, value):
         if self.value != value:
@@ -90,8 +88,12 @@ class DSwitch(BoxLayout):
     
     def update_button_states(self, instance, value):
         if value:
-            self.on_button.border_color = self.active_color
-            self.off_button.border_color = self.border_color
-        else:
-            self.off_button.border_color = self.active_color
             self.on_button.border_color = self.border_color
+            self.off_button.border_color = self.background_color
+            self.on_button.label.opacity = 1
+            self.off_button.label.opacity = self.inactive_opacity
+        else:
+            self.off_button.border_color = self.border_color
+            self.on_button.border_color = self.background_color
+            self.off_button.label.opacity = 1
+            self.on_button.label.opacity = self.inactive_opacity

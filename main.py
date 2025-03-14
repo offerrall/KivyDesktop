@@ -30,55 +30,53 @@ scroll_view = DScrollView(size_hint=(1, 1))
 scroll_view.layout.padding = [dp(20), dp(20), dp(20), dp(20)]
 
 
-for i in range(5):
-    
-    HEIGHT = dp(30)
-    
-    btn = DButton(
-        text=f"Height: {HEIGHT}",
-        size_hint_y=None,
-        size_hint_x=1,
-        height=HEIGHT,
-        release_callback=lambda instance: print(instance.text)
-    )
-    
-    int_input = DNumeric(
-        size_hint_y=None,
-        size_hint_x=1,
-        height=HEIGHT,
-        min_value=-10,
-        max_value=1000,
-        value=5,
-        use_float=bool(random.randint(0, 1)),
-        border_line_width=dp(1.2),
-    )
 
-    dropdown = DSpinner(
-        size_hint_y=None,
-        values=[f"Option {i}" for i in range(5)],
-        size_hint_x=1,
-        height=HEIGHT,
-    )
+HEIGHT = dp(30)
 
-    switch = DSwitch()
+btn = DButton(
+    text=f"Height: {HEIGHT}",
+    size_hint_y=None,
+    size_hint_x=1,
+    height=HEIGHT,
+    release_callback=lambda instance: print(instance.text)
+)
 
-    # Crear un switch con propiedades personalizadas
-    custom_switch = DSwitch(
-        value=True,  # Inicialmente activado
-        size_hint_y=None,
-        size_hint_x=1,
-        height=HEIGHT,
-        on_change_callback=lambda instance, value: print(f"Valor cambiado: {value}")
-    )
+int_input = DNumeric(
+    size_hint_y=None,
+    size_hint_x=1,
+    height=HEIGHT,
+    min_value=-10,
+    max_value=1000,
+    value=5,
+    use_float=bool(random.randint(0, 1)),
+    border_line_width=dp(1.2),
+)
 
-    int_input.bind(value=lambda instance, value: print(value))
+dropdown = DSpinner(
+    size_hint_y=None,
+    values=[f"Option {i}" for i in range(5)],
+    size_hint_x=1,
+    height=HEIGHT,
+)
+
+switch = DSwitch()
+
+# Crear un switch con propiedades personalizadas
+custom_switch = DSwitch(
+    value=True,  # Inicialmente activado
+    size_hint_y=None,
+    size_hint_x=1,
+    height=HEIGHT,
+    on_change_callback=lambda instance, value: print(f"Valor cambiado: {value}")
+)
+
+int_input.bind(value=lambda instance, value: print(value))
 
 
-    scroll_view.add_widget(dropdown)
-    scroll_view.add_widget(btn)
-    scroll_view.add_widget(int_input)
-    scroll_view.add_widget(switch)
-
+scroll_view.add_widget(dropdown)
+scroll_view.add_widget(btn)
+scroll_view.add_widget(int_input)
+scroll_view.add_widget(switch)
 
 
 background.add_widget(scroll_view)
