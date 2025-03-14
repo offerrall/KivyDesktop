@@ -1,218 +1,153 @@
-# KivyDesktop
+# Kivy Desktop
 
-A modern, desktop-focused UI component library built on top of Kivy. KivyDesktop simplifies Kivy development by disabling mobile-specific behaviors and providing enhanced UI components with desktop-specific interactions like hover effects and improved styling options.
-
-## Overview
-
-KivyDesktop enhances Kivy for desktop application development by providing:
-- Customizable buttons with icon support and alignment options
-- Numeric input fields with increment/decrement and drag-to-change functionality
-- Scroll views with automatic content layout adjustment and simplified configuration
-- Consistent theming and styling across components
-
-## Installation
-
-```bash
-pip install kivy-desktop
-```
-
-## Requirements
-- Python 3.7+
-- Kivy 2.0.0+
+A collection of stylized widgets for creating visually appealing desktop applications with Kivy.
 
 ## Features
 
-### Enhanced Desktop Interactions
-- **Mouse hover effects**: All components respond to mouse hover
-- **Drag interactions**: Numeric fields support click-and-drag to change values
-- **Desktop optimizations**: Configured for desktop use with standard mouse behavior
+- **DButton**: Customizable buttons with icon support, different styles, and hover effects.
+- **DNumeric**: Numeric control with adjustment via drag and +/- buttons.
+- **DSpinner**: Stylized dropdown menu.
+- **DSwitch**: Stylized ON/OFF switch.
+- **DScrollView**: Enhanced scroll view.
+- **Theme**: Theme system with customizable colors.
 
-### Modern UI Components
-- **DButton**: Advanced button with hover effects, icon support, and content alignment
-- **DNumeric**: Numeric input field with plus/minus buttons and drag interaction
-- **DScrollView**: Simplified scrollview with automatic content layout
-- **DApp**: Streamlined application startup and configuration
+## Installation
 
-### Customization
-- Consistent theming with easy color customization
-- Component-specific styling for borders, backgrounds, and text
-- Configurable component behavior and appearance
+### From Source
+1. Clone the repository:
+```bash
+git clone https://github.com/your_username/kivy_desktop.git
+```
 
-## Usage Examples
+2. Navigate to the project directory:
+```bash
+cd kivy_desktop
+```
 
-### Basic Application
+3. Install the package:
+```bash
+pip install .
+```
+
+Or install in development mode:
+```bash
+pip install -e .
+```
+
+## Basic Usage
 
 ```python
-from kivy_desktop.app import DApp
-from kivy_desktop.button import DButton
+from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
+from kivy_desktop.button import DButton
+from kivy_desktop.numeric import DNumeric
+from kivy_desktop.spinner import DSpinner
+from kivy_desktop.switch import DSwitch
 
-class MyApp:
-    def __init__(self):
-        # Create main container
-        self.container = BoxLayout(orientation='vertical', padding=10, spacing=10)
+class TestApp(App):
+    def build(self):
+        layout = BoxLayout(orientation='vertical', spacing=10, padding=10)
         
         # Add a button
-        button = DButton(text="Click Me!", release_callback=self.on_button_press)
-        self.container.add_widget(button)
+        btn = DButton(text="Click me", release_callback=self.on_button_click)
+        layout.add_widget(btn)
         
-        # Create and run the app
-        self.app = DApp(self.container, title="My Desktop App")
-        self.app.run()
+        # Add a numeric control
+        numeric = DNumeric(value=50, min_value=0, max_value=100)
+        layout.add_widget(numeric)
+        
+        # Add a spinner
+        spinner = DSpinner(text="Select", values=["Option 1", "Option 2", "Option 3"])
+        layout.add_widget(spinner)
+        
+        # Add a switch
+        switch = DSwitch(value=True, on_text="ON", off_text="OFF")
+        layout.add_widget(switch)
+        
+        return layout
     
-    def on_button_press(self, button):
-        print("Button pressed!")
+    def on_button_click(self, instance):
+        print("Button pressed")
 
 if __name__ == "__main__":
-    MyApp()
+    TestApp().run()
 ```
 
-### DButton with Icon
-
-```python
-from kivy_desktop.button import DButton
-from kivy.uix.boxlayout import BoxLayout
-
-layout = BoxLayout(padding=10)
-
-# Create button with icon
-button = DButton(
-    text="Save",
-    icon_source="icons/save.png",
-    icon_placement="left",
-    content_alignment="center",
-    release_callback=lambda btn: print("Save clicked")
-)
-
-layout.add_widget(button)
-```
-
-### DNumeric Input
-
-```python
-from kivy_desktop.numeric import DNumeric
-from kivy.uix.boxlayout import BoxLayout
-
-layout = BoxLayout(padding=10)
-
-# Create numeric input
-numeric = DNumeric(
-    value=50,
-    min_value=0,
-    max_value=100,
-    step=5,
-    use_float=False,
-    on_change_callback=lambda widget, value: print(f"Value changed to {value}")
-)
-
-layout.add_widget(numeric)
-```
-
-### DScrollView
-
-```python
-from kivy_desktop.scroll import DScrollView
-from kivy_desktop.button import DButton
-from kivy.uix.boxlayout import BoxLayout
-
-# Create a scroll view
-scroll = DScrollView(orientation='vertical', spacing=5, padding=10)
-
-# Add widgets to the scroll view
-for i in range(20):
-    btn = DButton(text=f"Item {i}", size_hint_y=None, height=40)
-    scroll.add_widget(btn)
-
-# Add to your layout
-root = BoxLayout()
-root.add_widget(scroll)
-```
-
-## Component Reference
+## Widget Components
 
 ### DButton
-
-A customizable button with hover effects, icon support, and content alignment options.
-
-**Key properties:**
-- `text`: Button label text
-- `icon_source`: Path to icon image
-- `icon_placement`: Position of icon ('left' or 'right')
-- `content_alignment`: Alignment of content ('left', 'center', 'right')
-- `release_callback`: Function to call when button is released
-- `background_color`: Normal background color
-- `background_color_down`: Pressed background color
-- `border_color`: Border color
-- `border_hover`: Border color when hovered
+```python
+button = DButton(
+    text="Click me",                     # Button text
+    icon_source="path/to/icon.png",      # Optional icon
+    icon_placement="left",               # Icon position ("left" or "right")
+    content_alignment="center",          # Text alignment ("left", "center", "right")
+    release_callback=my_function,        # Function to call when button is released
+    background_color=[0.1, 0.1, 0.1, 1], # Background color
+    font_color=[1, 1, 1, 1]              # Text color
+)
+```
 
 ### DNumeric
+```python
+numeric = DNumeric(
+    value=50,                            # Current value
+    min_value=0,                         # Minimum value
+    max_value=100,                       # Maximum value
+    step=1,                              # Step size
+    use_float=False,                     # Use floating point values
+    float_precision=2,                   # Decimal places (if use_float=True)
+    on_change_callback=my_function       # Function to call when value changes
+)
+```
 
-A numeric input field with increment/decrement buttons and drag-to-change functionality.
+### DSpinner
+```python
+spinner = DSpinner(
+    text="Select option",                # Current selection text
+    values=["Option 1", "Option 2"],     # Dropdown options
+    on_select_callback=my_function       # Function to call when selection changes
+)
+```
 
-**Key properties:**
-- `value`: Current numeric value
-- `min_value`: Minimum allowed value
-- `max_value`: Maximum allowed value
-- `step`: Amount to increment/decrement
-- `use_float`: If True, allows floating point values
-- `float_precision`: Number of decimal places when using floats
-- `on_change_callback`: Function to call when value changes
-- `drag_sensitivity`: Controls sensitivity of drag-to-change
+### DSwitch
+```python
+switch = DSwitch(
+    value=True,                          # Current state
+    on_change_callback=my_function       # Function to call when state changes
+)
+```
 
 ### DScrollView
+```python
+scroll = DScrollView(
+    orientation="vertical",              # Scroll direction
+    spacing=10,                          # Spacing between children
+    padding=10,                          # Padding around content
+    auto_adjust_height=True              # Auto-adjust height based on content
+)
 
-A simplified scroll view with automatic content layout adjustment.
+# Add widgets to scroll view
+scroll.add_widget(my_widget)
+```
 
-**Key properties:**
-- `orientation`: Direction of scrolling ('vertical' or 'horizontal')
-- `spacing`: Space between child widgets
-- `padding`: Padding inside the scroll view
-- `auto_adjust_height`: If True, automatically adjusts height based on content
+## Customizing Themes
 
-## Customization
-
-### Theming
-
-You can customize the color theme by modifying the color values in `theme.py`:
+You can customize the theme colors by modifying the `COLORS` dictionary:
 
 ```python
 from kivy_desktop.theme import COLORS
 
-# Customize colors
-COLORS['back1'] = [0.15, 0.15, 0.15, 1]  # Lighter background
-COLORS['seleted'] = [0.2, 0.6, 1, 1]     # Blue highlight
+# Override default colors
+COLORS['back1'] = [0.15, 0.15, 0.15, 1]  # Slightly lighter background
+COLORS['seleted'] = [0, 0.8, 1, 1]       # Different highlight color
 ```
 
-### Component Styling
+## Requirements
 
-Each component has properties for customizing its appearance:
-
-```python
-button = DButton(
-    background_color=[0.2, 0.2, 0.2, 1],
-    border_color=[0.1, 0.1, 0.1, 1],
-    font_color=[1, 1, 1, 1],
-    background_radius=[10, 10, 10, 10],
-    internal_padding=[15, 10, 15, 10]
-)
-```
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+- Python 3.9+
+- Kivy 2.0.0+
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Credits
-
-Developed with ❤️ for the Kivy community
-
-Built on top of [Kivy](https://kivy.org/), a powerful open-source Python framework for developing multi-touch applications.
+[MIT](LICENSE)
