@@ -9,6 +9,25 @@ from kivy.uix.label import Label
 from .theme import COLORS
 
 class DButton(BoxLayout):
+    """
+    is_pressed: bool \n
+    is_hover: bool \n
+    icon_size: int \n
+    icon_text_spacing: int \n
+    border_line_width: int \n
+    text: str \n
+    icon_source: str \n
+    icon_placement: str \n
+    content_alignment: str \n
+    background_color: list \n
+    background_color_down: list \n
+    border_color: list \n
+    border_hover: list \n
+    font_color: list \n
+    background_radius: list \n
+    internal_padding: list \n
+    release_callback: function \n
+    """
     
     is_pressed = BooleanProperty(False)
     is_hover = BooleanProperty(False)

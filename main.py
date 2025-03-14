@@ -3,6 +3,7 @@ from kivy.graphics import Color, Rectangle
 from kivy_desktop.button import DButton
 from kivy_desktop.numeric import DNumeric
 from kivy_desktop.scroll import DScrollView
+from kivy_desktop.spinner import DSpinner
 from kivy_desktop.app import DApp
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
@@ -49,9 +50,18 @@ for i in range(5):
         use_float=bool(random.randint(0, 1)),
         border_line_width=dp(1.2),
     )
+
+    dropdown = DSpinner(
+        size_hint_y=None,
+        size_hint_x=1,
+        height=HEIGHT,
+    )
+
+    
     
     int_input.bind(value=lambda instance, value: print(value))
 
+    scroll_view.add_widget(dropdown)
     scroll_view.add_widget(btn)
     scroll_view.add_widget(int_input)
 
