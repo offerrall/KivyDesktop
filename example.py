@@ -29,8 +29,6 @@ background = BackgroundWidget(orientation='vertical')
 scroll_view = DScrollView(size_hint=(1, 1))
 scroll_view.layout.padding = [dp(20), dp(20), dp(20), dp(20)]
 
-
-
 HEIGHT = dp(30)
 
 btn = DButton(
@@ -61,9 +59,8 @@ dropdown = DSpinner(
 
 switch = DSwitch()
 
-# Crear un switch con propiedades personalizadas
 custom_switch = DSwitch(
-    value=True,  # Inicialmente activado
+    value=True,
     size_hint_y=None,
     size_hint_x=1,
     height=HEIGHT,
