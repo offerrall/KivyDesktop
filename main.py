@@ -9,6 +9,8 @@ from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 import random
 
+from kivy_desktop.switch import DSwitch
+
 class BackgroundWidget(BoxLayout):
     def __init__(self, **kwargs):
         super(BackgroundWidget, self).__init__(**kwargs)
@@ -58,11 +60,24 @@ for i in range(5):
         height=HEIGHT,
     )
 
+    switch = DSwitch()
+
+    # Crear un switch con propiedades personalizadas
+    custom_switch = DSwitch(
+        value=True,  # Inicialmente activado
+        size_hint_y=None,
+        size_hint_x=1,
+        height=HEIGHT,
+        on_change_callback=lambda instance, value: print(f"Valor cambiado: {value}")
+    )
+
     int_input.bind(value=lambda instance, value: print(value))
+
 
     scroll_view.add_widget(dropdown)
     scroll_view.add_widget(btn)
     scroll_view.add_widget(int_input)
+    scroll_view.add_widget(switch)
 
 
 
