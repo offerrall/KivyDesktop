@@ -6,6 +6,7 @@ from kivy.clock import Clock
 from kivy.core.window import Window
 
 from .theme import COLORS
+from .state import STATE
 from .button import DButton
 
 class DNumeric(BoxLayout):
@@ -248,6 +249,9 @@ class DNumeric(BoxLayout):
                 self.increment_error_timer = None
     
     def on_window_touch_down(self, window, touch):
+        if STATE.drop_menu_open:
+            return False
+
         if hasattr(touch, 'button') and touch.button.startswith('scroll'):
             return False
         
@@ -274,6 +278,9 @@ class DNumeric(BoxLayout):
         self.is_dragging = True
     
     def on_window_touch_move(self, window, touch):
+
+        if STATE.drop_menu_open:
+            return False
 
         if self.drag_active and touch.uid == self.drag_touch_id:
             delta_x = touch.x - self.drag_start_x
@@ -307,6 +314,8 @@ class DNumeric(BoxLayout):
                 self.text_input.focus = True
     
     def on_mouse_move(self, window, pos):
+        if STATE.drop_menu_open:
+            return False
         widget_pos = self.to_widget(*pos)
         
         if self.text_input.collide_point(*self.text_input.to_widget(*pos)):

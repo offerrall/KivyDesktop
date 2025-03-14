@@ -6,6 +6,7 @@ from kivy.uix.dropdown import DropDown
 
 from .button import DButton
 from .theme import COLORS
+from .state import STATE
 
 class DSpinnerOption(DButton):
 
@@ -133,6 +134,7 @@ class DSpinner(BoxLayout):
     def toggle_dropdown(self, instance):
         if self.is_open:
             self.dropdown.dismiss()
+            STATE.drop_menu_open = False
         else:
             self.open_dropdown()
     
@@ -148,9 +150,11 @@ class DSpinner(BoxLayout):
         
         self.dropdown.open(self.drop_button)
         self.is_open = True
+        STATE.drop_menu_open = True
     
     def _on_dropdown_dismiss(self, *args):
         self.is_open = False
+        STATE.drop_menu_open = False
     
     def _on_dropdown_select(self, instance, value):
         self.text = value
