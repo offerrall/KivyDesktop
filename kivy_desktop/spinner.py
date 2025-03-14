@@ -5,7 +5,7 @@ from kivy.core.window import Window
 from kivy.uix.dropdown import DropDown
 
 from .button import DButton
-from .theme import COLORS
+from .theme import COLORS, METRICS
 from .state import STATE
 from .utils import get_resource_path
 
@@ -43,12 +43,12 @@ class DSpinner(BoxLayout):
     background_color = ListProperty(COLORS['back1'])
     border_color = ListProperty(COLORS['back2'])
     border_hover = ListProperty(COLORS['seleted'])
-    border_width = NumericProperty(dp(1.2))
+    border_width = NumericProperty(METRICS['border_line_width'])
     background_color_down = ListProperty(COLORS['back2'])
     text_color = ListProperty(COLORS['font'])
     option_height = NumericProperty(dp(30))
     dropdown_max_height = NumericProperty(dp(200))
-    background_radius = ListProperty([dp(6), dp(6), dp(6), dp(6)])
+    background_radius = ListProperty(METRICS['background_radius'])
     
     on_select_callback = ObjectProperty(None)
     

@@ -6,7 +6,7 @@ from kivy.clock import Clock
 from kivy.uix.image import Image
 from kivy.uix.label import Label
 
-from .theme import COLORS
+from .theme import COLORS, METRICS
 
 class DButton(BoxLayout):
     """
@@ -34,7 +34,7 @@ class DButton(BoxLayout):
     
     icon_size = NumericProperty(dp(24))
     icon_text_spacing = NumericProperty(dp(10))
-    border_line_width = NumericProperty(dp(1.2))
+    border_line_width = NumericProperty(METRICS['border_line_width'])
 
     text = StringProperty('Button')
     icon_source = StringProperty('')
@@ -47,8 +47,8 @@ class DButton(BoxLayout):
     border_hover = ListProperty(COLORS['seleted'])
     font_color = ListProperty(COLORS['font'])
 
-    background_radius = ListProperty([dp(6), dp(6), dp(6), dp(6)])
-    internal_padding = ListProperty([dp(10), dp(10), dp(10), dp(10)])
+    background_radius = ListProperty(METRICS['background_radius'])
+    internal_padding = ListProperty(METRICS['internal_padding'])
 
     release_callback = ObjectProperty(None)
     

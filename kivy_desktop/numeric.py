@@ -5,7 +5,7 @@ from kivy.metrics import dp
 from kivy.clock import Clock
 from kivy.core.window import Window
 
-from .theme import COLORS
+from .theme import COLORS, METRICS
 from .state import STATE
 from .button import DButton
 
@@ -40,8 +40,8 @@ class DNumeric(BoxLayout):
     use_float = BooleanProperty(False)
     float_precision = NumericProperty(2)
 
-    background_radius = NumericProperty(dp(6))
-    border_line_width = NumericProperty(dp(1.2))
+    background_radius = NumericProperty(METRICS['background_radius'][0])
+    border_line_width = NumericProperty(METRICS['border_line_width'])
     plus_minus_width = NumericProperty(dp(40))
 
     background_color = ListProperty(COLORS['back2'])

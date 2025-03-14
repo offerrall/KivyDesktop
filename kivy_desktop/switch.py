@@ -3,7 +3,7 @@ from kivy.properties import BooleanProperty, ObjectProperty, ListProperty, Numer
 from kivy.metrics import dp
 from kivy.clock import Clock
 
-from .theme import COLORS
+from .theme import COLORS, METRICS
 from .button import DButton
 
 class DSwitch(BoxLayout):
@@ -29,7 +29,7 @@ class DSwitch(BoxLayout):
     border_color = ListProperty(COLORS['back2'])
     border_hover = ListProperty(COLORS['seleted'])
     inactive_opacity = NumericProperty(0.25)
-    border_line_width = NumericProperty(dp(1.2))
+    border_line_width = NumericProperty(METRICS['border_line_width'])
     background_radius = ListProperty([dp(6), dp(6), dp(6), dp(6)])
     spacing = NumericProperty(dp(2))
     
