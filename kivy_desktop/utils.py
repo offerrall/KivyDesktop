@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 def get_resource_path(resource_type, filename):
