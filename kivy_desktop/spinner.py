@@ -3,8 +3,6 @@ from kivy.properties import BooleanProperty, ObjectProperty, ListProperty, Numer
 from kivy.metrics import dp
 from kivy.core.window import Window
 from kivy.uix.dropdown import DropDown
-from kivy.uix.label import Label
-from kivy.clock import Clock
 
 from .button import DButton
 from .theme import COLORS
@@ -15,10 +13,25 @@ class DSpinnerOption(DButton):
         kwargs.setdefault('size_hint_y', None)
         kwargs.setdefault('height', dp(30))
         kwargs.setdefault('background_radius', [0, 0, 0, 0])
-        kwargs.setdefault('content_alignment', 'left')
         super(DSpinnerOption, self).__init__(**kwargs)
 
 class DSpinner(BoxLayout):
+    """
+    text: str \n
+    values: list \n
+    is_open: bool \n
+    is_hover: bool \n
+    background_color: list \n
+    border_color: list \n
+    border_hover: list \n
+    border_width: int \n
+    background_color_down: list \n
+    text_color: list \n
+    option_height: int \n
+    dropdown_max_height: int \n
+    background_radius: list \n
+    on_select_callback: function \n
+    """
 
     text = StringProperty('')
     values = ListProperty([])
@@ -85,24 +98,18 @@ class DSpinner(BoxLayout):
     def _update_dropdown_values(self, *args):
         self.dropdown.clear_widgets()
         
-        # Calculate border radius for items
         top_radius = [self.background_radius[0], self.background_radius[1], 0, 0]
         middle_radius = [0, 0, 0, 0]
         bottom_radius = [0, 0, self.background_radius[2], self.background_radius[3]]
         
         for index, value in enumerate(self.values):
-            # Determine which radius to use based on position
             if len(self.values) == 1:
-                # If only one item, use full radius
                 item_radius = self.background_radius
             elif index == 0:
-                # First item gets top radius
                 item_radius = top_radius
             elif index == len(self.values) - 1:
-                # Last item gets bottom radius
                 item_radius = bottom_radius
             else:
-                # Middle items get no radius
                 item_radius = middle_radius
             
             option = DSpinnerOption(
@@ -117,7 +124,6 @@ class DSpinner(BoxLayout):
                 background_radius=item_radius
             )
             
-            # Using a lambda with default argument to avoid late binding issue
             option.release_callback = lambda btn, value=value: self.dropdown.select(value)
             
             self.dropdown.add_widget(option)
@@ -138,15 +144,12 @@ class DSpinner(BoxLayout):
         if not self.values:
             return
         
-        # Set the width of the dropdown to match the spinner width
         self.dropdown.width = self.width
         
-        # Update option button widths
         for child in self.dropdown.container.children:
             if isinstance(child, DSpinnerOption):
                 child.width = self.width
         
-        # Open the dropdown
         self.dropdown.open(self.drop_button)
         self.is_open = True
     
@@ -163,7 +166,6 @@ class DSpinner(BoxLayout):
             Window.unbind(mouse_pos=self.on_mouse_pos)
             
     def set_value(self, value):
-        """Programmatically set the spinner value"""
         if value in self.values:
             self.text = value
             if self.on_select_callback:

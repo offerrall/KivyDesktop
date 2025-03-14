@@ -4,6 +4,12 @@ from kivy.properties import ObjectProperty, NumericProperty, BooleanProperty
 from kivy.metrics import dp
 
 class DScrollView(ScrollView):
+    """
+    orientation: str \n
+    spacing: int \n
+    padding: int \n
+    auto_adjust_height: bool \n
+    """
 
     orientation = ObjectProperty('vertical')
     spacing = NumericProperty(dp(10))

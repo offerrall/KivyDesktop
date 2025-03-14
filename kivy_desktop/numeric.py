@@ -9,6 +9,27 @@ from .theme import COLORS
 from .button import DButton
 
 class DNumeric(BoxLayout):
+    """
+    value: int \n
+    min_value: int \n
+    max_value: int \n
+    step: int \n
+    use_float: bool \n
+    float_precision: int \n
+    background_radius: int \n
+    border_line_width: int \n
+    plus_minus_width: int \n
+    background_color: list \n
+    border_color: list \n
+    text_color: list \n
+    plus_minus_border_color_down: list \n
+    error_color: list \n
+    plus_minus_background_color: list \n
+    on_change_callback: function \n
+    is_dragging: bool \n
+    is_hover: bool \n
+    drag_sensitivity: float \n
+    """
 
     value = NumericProperty(0)
     min_value = NumericProperty(-99999)
