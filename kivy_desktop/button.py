@@ -43,7 +43,7 @@ class DButton(BoxLayout):
     
     background_color = ListProperty(COLORS['back1'])
     background_color_down = ListProperty(COLORS['back2'])
-    border_color = ListProperty(COLORS['border'])
+    border_color = ListProperty(COLORS['back2'])
     border_hover = ListProperty(COLORS['seleted'])
     font_color = ListProperty(COLORS['font'])
 

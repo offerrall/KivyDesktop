@@ -44,7 +44,7 @@ class DNumeric(BoxLayout):
     plus_minus_width = NumericProperty(dp(40))
 
     background_color = ListProperty(COLORS['back2'])
-    border_color = ListProperty(COLORS['border'])
+    border_color = ListProperty(COLORS['back2'])
     text_color = ListProperty(COLORS['font'])
     plus_minus_border_color_down = ListProperty(COLORS['seleted'])
     error_color = ListProperty(COLORS['error'])

@@ -39,7 +39,7 @@ class DSpinner(BoxLayout):
     is_hover = BooleanProperty(False)
     
     background_color = ListProperty(COLORS['back1'])
-    border_color = ListProperty(COLORS['border'])
+    border_color = ListProperty(COLORS['back2'])
     border_hover = ListProperty(COLORS['seleted'])
     border_width = NumericProperty(dp(1.2))
     background_color_down = ListProperty(COLORS['back2'])
@@ -114,9 +114,9 @@ class DSpinner(BoxLayout):
             
             option = DSpinnerOption(
                 text=value,
-                background_color=self.background_color_down,
-                background_color_down=self.background_color,
-                border_color=self.background_color,
+                background_color=self.background_color,
+                background_color_down=self.background_color_down,
+                border_color=self.background_color_down,
                 border_hover=self.border_hover,
                 border_line_width=self.border_width,
                 font_color=self.text_color,
