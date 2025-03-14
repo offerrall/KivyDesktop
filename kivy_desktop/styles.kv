@@ -29,8 +29,6 @@
             spacing: root.icon_text_spacing if root.icon_source else 0
             padding: [0, (max(self.height, root.icon_size) - min(self.height, root.icon_size))/2 if root.icon_source else 0, 0, 0]
 
-<DDropdown>:
-    
 
 <DNumeric>:
     canvas:
@@ -46,3 +44,4 @@
         Line:
             rounded_rectangle: [self.x, self.y, self.width, self.height, dp(6), dp(6), dp(6), dp(6)]
             width: root.border_line_width
+

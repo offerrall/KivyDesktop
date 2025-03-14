@@ -53,12 +53,11 @@ for i in range(5):
 
     dropdown = DSpinner(
         size_hint_y=None,
+        values=[f"Option {i}" for i in range(5)],
         size_hint_x=1,
         height=HEIGHT,
     )
 
-    
-    
     int_input.bind(value=lambda instance, value: print(value))
 
     scroll_view.add_widget(dropdown)
