@@ -13,7 +13,7 @@ A collection of stylized widgets for creating visually appealing desktop applica
 - **DScrollView**: Enhanced scroll view for desktop applications.
 - **DTextInput**: Disable all default text input behavior.
 - **DBoxLayout**: Stylized box layout with border and background customization.
-- **NamedWidget**: A widget with a name attribute for easy identification.
+- **DNamedWidget**: A widget with a name attribute for easy identification.
 - **Theme**: Theme system with customizable colors.
 
 ## Installation

@@ -3,7 +3,7 @@ from kivy.metrics import dp
 from kivy.uix.label import Label
 from kivy.properties import ListProperty, NumericProperty, StringProperty, OptionProperty
 
-class NamedWidget(DBoxLayout):
+class DNamedWidget(DBoxLayout):
     """
     name_width: int \n
     text_align: str \n
@@ -16,7 +16,7 @@ class NamedWidget(DBoxLayout):
     text_align = OptionProperty("left", options=["left", "center", "right"])
     
     def __init__(self, name: str, widget, text_align="left", **kwargs):
-        super(NamedWidget, self).__init__(**kwargs)
+        super(DNamedWidget, self).__init__(**kwargs)
         
         label = Label(
             text=name, 
