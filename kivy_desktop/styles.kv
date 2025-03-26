@@ -14,7 +14,7 @@
             rgba: root.border_hover if root.is_hover else root.border_color
         Line:
             rounded_rectangle: [self.x, self.y, self.width, self.height] + root.background_radius
-            width: root.border_line_width
+            width: root.border_line_width if root.border_line_width > 0 else 0.0001
     
     AnchorLayout:
         id: anchor_layout
@@ -43,7 +43,7 @@
             rgba: root.border_color
         Line:
             rounded_rectangle: [self.x, self.y, self.width, self.height, dp(6), dp(6), dp(6), dp(6)]
-            width: root.border_line_width
+            width: root.border_line_width if root.border_line_width > 0 else 0.0001
 
 
 <DBoxLayout>:
@@ -59,4 +59,4 @@
             rgba: root.border_color
         Line:
             rounded_rectangle: [self.x, self.y, self.width, self.height] + root.background_radius
-            width: root.border_line_width
+            width: root.border_line_width if root.border_line_width > 0 else 0.0001
