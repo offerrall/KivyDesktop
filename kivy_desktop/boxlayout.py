@@ -17,7 +17,7 @@ class DBoxLayout(BoxLayout):
     """
     background_color = ListProperty(COLORS['back'])
     background_radius = ListProperty(METRICS['background_radius'])
-    border_line_width = NumericProperty(METRICS['border_line_width'])
+    border_line_width = NumericProperty(0)
     border_color = ListProperty(COLORS['back2'])
     padding = ListProperty(METRICS['internal_padding'])
     orientation = StringProperty('vertical')
