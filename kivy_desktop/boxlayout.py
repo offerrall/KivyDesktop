@@ -7,6 +7,14 @@ from kivy.properties import NumericProperty
 
 
 class DBoxLayout(BoxLayout):
+    """
+    background_color: list \n
+    background_radius: list \n
+    border_line_width: int \n
+    border_color: list \n
+    padding: list \n
+    orientation: str \n
+    """
     background_color = ListProperty(COLORS['back'])
     background_radius = ListProperty(METRICS['background_radius'])
     border_line_width = NumericProperty(METRICS['border_line_width'])
