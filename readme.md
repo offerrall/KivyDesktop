@@ -14,6 +14,7 @@ A collection of stylized widgets for creating visually appealing desktop applica
 - **DTextInput**: Disable all default text input behavior.
 - **DBoxLayout**: Stylized box layout with border and background customization.
 - **DNamedWidget**: A widget with a name attribute for easy identification.
+- **Popup**: Simple popup with customizable title and message.
 - **Theme**: Theme system with customizable colors.
 
 ## Installation
