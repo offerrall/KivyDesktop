@@ -12,6 +12,7 @@ class Dpopup(Popup):
     def __init__(self,
                  title: str,
                  message: str,
+                 title_align = 'center',
                  size: tuple = (dp(300), dp(100)),
                  **kwargs):
         super(Dpopup, self).__init__(**kwargs)
@@ -19,4 +20,5 @@ class Dpopup(Popup):
         self.content = Label(text=message)
         self.size_hint = (None, None)
         self.size = size
+        self.title_align = title_align
         
