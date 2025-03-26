@@ -1,6 +1,7 @@
 from kivy.metrics import dp
 
 COLORS = {
+    'back': [0.2, 0.2, 0.2, 1],
     'back1': [0.10, 0.10, 0.10, 1],
     'back2': [0.05, 0.05, 0.05, 1],
     'seleted': [0, 1, 1, 1],
