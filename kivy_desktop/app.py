@@ -1,7 +1,12 @@
 from kivy.app import App
 
 class DApp(App):
-
+    """
+    main_container: widget \n
+    title:
+        type: str
+        default: 'Kivy Desktop App' \n
+    """
     def __init__(self,
                  main_container,
                  title="Kivy Desktop App",
