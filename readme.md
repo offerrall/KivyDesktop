@@ -11,6 +11,7 @@ A collection of stylized widgets for creating visually appealing desktop applica
 - **DSpinner**: Stylized dropdown menu.
 - **DSwitch**: Stylized ON/OFF switch.
 - **DScrollView**: Enhanced scroll view for desktop applications.
+- **DBoxLayout**: Stylized box layout with border and background customization.
 - **Theme**: Theme system with customizable colors.
 
 ## Installation
@@ -45,26 +46,31 @@ from kivy_desktop.button import DButton
 from kivy_desktop.numeric import DNumeric
 from kivy_desktop.spinner import DSpinner
 from kivy_desktop.switch import DSwitch
+from kivy_desktop.boxlayout import DBoxLayout
 
 class TestApp(App):
     def build(self):
         layout = BoxLayout(orientation='vertical', spacing=10, padding=10)
         
+        # Add a stylized box layout
+        styled_box = DBoxLayout(padding=20, orientation='vertical')
+        layout.add_widget(styled_box)
+        
         # Add a button
         btn = DButton(text="Click me", release_callback=self.on_button_click)
-        layout.add_widget(btn)
+        styled_box.add_widget(btn)
         
         # Add a numeric control
         numeric = DNumeric(value=50, min_value=0, max_value=100)
-        layout.add_widget(numeric)
+        styled_box.add_widget(numeric)
         
         # Add a spinner
         spinner = DSpinner(text="Select", values=["Option 1", "Option 2", "Option 3"])
-        layout.add_widget(spinner)
+        styled_box.add_widget(spinner)
         
         # Add a switch
         switch = DSwitch(value=True, on_text="ON", off_text="OFF")
-        layout.add_widget(switch)
+        styled_box.add_widget(switch)
         
         return layout
     
@@ -116,6 +122,8 @@ spinner = DSpinner(
 ```python
 switch = DSwitch(
     value=True,                          # Current state
+    on_text="ON",                        # Text when switch is ON
+    off_text="OFF",                      # Text when switch is OFF
     on_change_callback=my_function       # Function to call when state changes
 )
 ```
@@ -131,6 +139,21 @@ scroll = DScrollView(
 
 # Add widgets to scroll view
 scroll.add_widget(my_widget)
+```
+
+### DBoxLayout
+```python
+box = DBoxLayout(
+    orientation="vertical",               # Layout orientation
+    background_color=[0.2, 0.2, 0.2, 1],  # Background color
+    background_radius=[6, 6, 6, 6],       # Corner radius
+    border_line_width=1.2,                # Border width
+    border_color=[0.05, 0.05, 0.05, 1],   # Border color
+    padding=[10, 10, 10, 10]              # Internal padding
+)
+
+# Add widgets to the box layout
+box.add_widget(my_widget)
 ```
 
 ## Customizing Themes

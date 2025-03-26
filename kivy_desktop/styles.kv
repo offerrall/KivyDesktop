@@ -49,7 +49,14 @@
 <DBoxLayout>:
     canvas:
         Color:
-            rgba: self.background_color
-        Rectangle:
-            size: self.size
+            rgba: root.background_color
+        RoundedRectangle:
             pos: self.pos
+            size: self.size
+            radius: root.background_radius
+        
+        Color:
+            rgba: root.border_color
+        Line:
+            rounded_rectangle: [self.x, self.y, self.width, self.height] + root.background_radius
+            width: root.border_line_width
