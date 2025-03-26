@@ -30,3 +30,5 @@ class DNamedWidget(DBoxLayout):
         self.add_widget(label)
         self.add_widget(widget)
         self.text_align = text_align
+        self.label = label
+        self.widget = widget
