@@ -83,7 +83,7 @@ if __name__ == "__main__":
     TestApp().run()
 ```
 
-## Widget Components
+## Some Widget Components
 
 ### DButton
 ```python
