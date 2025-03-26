@@ -4,6 +4,12 @@ from kivy.uix.label import Label
 from kivy.properties import ListProperty, NumericProperty, StringProperty, OptionProperty
 
 class NamedWidget(DBoxLayout):
+    """
+    name_width: int \n
+    text_align: str \n
+    padding: list \n
+    orientation: str \n
+    """
     orientation = StringProperty("horizontal")
     padding = ListProperty([0, 0, 0, 0])
     name_width = NumericProperty(dp(70))
