@@ -11,6 +11,7 @@ A collection of stylized widgets for creating visually appealing desktop applica
 - **DSpinner**: Stylized dropdown menu.
 - **DSwitch**: Stylized ON/OFF switch.
 - **DScrollView**: Enhanced scroll view for desktop applications.
+- **DTextInput**: Disable all default text input behavior.
 - **DBoxLayout**: Stylized box layout with border and background customization.
 - **Theme**: Theme system with customizable colors.
 
