@@ -14,6 +14,7 @@ class Dpopup(Popup):
                  message: str,
                  title_align = 'center',
                  size: tuple = (dp(300), dp(100)),
+                 auto_open = True,
                  **kwargs):
         super(Dpopup, self).__init__(**kwargs)
         self.title = title
@@ -22,3 +23,5 @@ class Dpopup(Popup):
         self.size = size
         self.title_align = title_align
         
+        if auto_open:
+            self.open()
