@@ -44,3 +44,12 @@
         Line:
             rounded_rectangle: [self.x, self.y, self.width, self.height, dp(6), dp(6), dp(6), dp(6)]
             width: root.border_line_width
+
+
+<DBoxLayout>:
+    canvas:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
