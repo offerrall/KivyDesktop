@@ -19,7 +19,7 @@ class DBoxLayout(BoxLayout):
     background_radius = ListProperty(METRICS['background_radius'])
     border_line_width = NumericProperty(METRICS['border_line_width'])
     border_color = ListProperty(COLORS['back2'])
-    padding = ListProperty([dp(10), dp(10), dp(10), dp(10)])
+    padding = ListProperty(METRICS['internal_padding'])
     orientation = "vertical"
     
     def __init__(self, **kwargs):
