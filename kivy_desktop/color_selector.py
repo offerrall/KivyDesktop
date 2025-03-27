@@ -1,5 +1,5 @@
 from kivy.uix.widget import Widget
-from kivy.properties import ListProperty, ObjectProperty
+from kivy.properties import ListProperty, ObjectProperty, BooleanProperty
 from .theme import METRICS
 
 from kivy.uix.modalview import ModalView
@@ -17,6 +17,7 @@ class DColorSelector(Widget):
     color = ListProperty([1, 1, 1, 1])
     background_radius = ListProperty(METRICS['background_radius'])
     color_change_callback = ObjectProperty(None)
+    only_read = BooleanProperty(False)
     
     def __init__(self,
                  **kwargs):
@@ -24,6 +25,10 @@ class DColorSelector(Widget):
     
     
     def on_touch_down(self, touch):
+        
+        if self.only_read:
+            return False
+        
         if self.collide_point(*touch.pos):
             
             modal = ModalView(size_hint=(None, None), size=(400, 400), background_color=[0, 0, 0, 0], background='')
