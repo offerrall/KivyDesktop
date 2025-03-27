@@ -60,3 +60,12 @@
         Line:
             rounded_rectangle: [self.x, self.y, self.width, self.height] + root.background_radius
             width: root.border_line_width if root.border_line_width > 0 else 0.0001
+
+<DColorSelector>:
+    canvas:
+        Color:
+            rgba: root.color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: root.background_radius
