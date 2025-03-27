@@ -9,6 +9,11 @@ from .boxlayout import DBoxLayout
 
 
 class DColorSelector(Widget):
+    """
+    color: list \n
+    background_radius: list \n
+    color_change_callback: function \n
+    """
     color = ListProperty([1, 1, 1, 1])
     background_radius = ListProperty(METRICS['background_radius'])
     color_change_callback = ObjectProperty(None)
