@@ -1,5 +1,5 @@
 from kivy.uix.textinput import TextInput
-from kivy.properties import ListProperty, StringProperty
+from kivy.properties import ListProperty, StringProperty, BooleanProperty
 
 
 class DTextInput(TextInput):
@@ -15,7 +15,7 @@ class DTextInput(TextInput):
     foreground_color = ListProperty([1, 1, 1, 1])
     background_color = ListProperty([0, 0, 0, 0])
     cursor_color = ListProperty([1, 1, 1, 1])
-    multiline = False
+    multiline = BooleanProperty(False)
     
     def __init__(self, **kwargs):
         super(DTextInput, self).__init__(**kwargs)
