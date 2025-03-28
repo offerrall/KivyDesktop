@@ -13,7 +13,7 @@ class Dpopup(Popup):
                  title: str,
                  message: str,
                  title_align = 'center',
-                 size: tuple = (dp(500), dp(100)),
+                 size: tuple = (dp(800), dp(100)),
                  auto_open = True,
                  **kwargs):
         super(Dpopup, self).__init__(**kwargs)
