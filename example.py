@@ -67,9 +67,22 @@ custom_switch = DSwitch(
     on_change_callback=lambda instance, value: print(f"Valor cambiado: {value}")
 )
 
+intnumeric = DNumeric(
+    size_hint_y=None,
+    size_hint_x=1,
+    height=dp(100),
+    min_value=-10,
+    max_value=1000,
+    value=5,
+    use_float=bool(random.randint(0, 1)),
+    border_line_width=dp(1.2),
+    on_change_callback=lambda instance, value: print(f"Valor cambiado: {value}")
+)
+
+
 int_input.bind(value=lambda instance, value: print(value))
 
-
+scroll_view.add_widget(intnumeric)
 scroll_view.add_widget(dropdown)
 scroll_view.add_widget(btn)
 scroll_view.add_widget(int_input)
