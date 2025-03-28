@@ -62,6 +62,12 @@ class DNumeric(BoxLayout):
         self.orientation = 'horizontal'
         self.spacing = dp(0)
         
+        if self.value < self.min_value:
+            self.value = self.min_value
+        
+        if self.value > self.max_value:
+            self.value = self.max_value
+        
         self.decrement_error_timer = None
         self.increment_error_timer = None
         
