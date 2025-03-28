@@ -146,7 +146,7 @@ class DNumeric(BoxLayout):
     def center_text_vertically(self, dt):
         available_space = self.text_input.height - self.text_input.minimum_height
         
-        offset = dp(0)
+        offset = dp(7)
         
         top_padding = (available_space / 2.0) + offset
         bottom_padding = (available_space / 2.0) - offset
