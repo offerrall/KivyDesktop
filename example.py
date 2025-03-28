@@ -57,8 +57,6 @@ dropdown = DSpinner(
     height=HEIGHT,
 )
 
-switch = DSwitch()
-
 custom_switch = DSwitch(
     value=True,
     size_hint_y=None,
@@ -86,7 +84,7 @@ scroll_view.add_widget(intnumeric)
 scroll_view.add_widget(dropdown)
 scroll_view.add_widget(btn)
 scroll_view.add_widget(int_input)
-scroll_view.add_widget(switch)
+scroll_view.add_widget(custom_switch)
 
 
 background.add_widget(scroll_view)
