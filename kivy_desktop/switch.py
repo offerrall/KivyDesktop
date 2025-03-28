@@ -9,8 +9,8 @@ from .button import DButton
 class DSwitch(BoxLayout):
     """
     value: bool \n
-    on_text: str \n
-    off_text: str \n
+    text_on: str \n
+    text_off: str \n
     background_color: list \n
     border_color: list \n
     border_hover: list \n
@@ -22,8 +22,8 @@ class DSwitch(BoxLayout):
     """
     
     value = BooleanProperty(False)
-    on_text = StringProperty('ON')
-    off_text = StringProperty('OFF')
+    text_on = StringProperty('ON')
+    text_off = StringProperty('OFF')
     
     background_color = ListProperty(COLORS['back1'])
     border_color = ListProperty(COLORS['back2'])
@@ -44,7 +44,7 @@ class DSwitch(BoxLayout):
         self.spacing = self.spacing
         
         self.off_button = DButton(
-            text=self.off_text,
+            text=self.text_off,
             border_line_width=self.border_line_width,
             background_color=self.background_color,
             background_color_down=self.background_color,
@@ -56,7 +56,7 @@ class DSwitch(BoxLayout):
         )
         
         self.on_button = DButton(
-            text=self.on_text,
+            text=self.text_on,
             border_line_width=self.border_line_width,
             background_color=self.background_color,
             background_color_down=self.background_color,
@@ -71,8 +71,8 @@ class DSwitch(BoxLayout):
         self.add_widget(self.on_button)
         
         self.bind(value=self.update_button_states)
-        self.bind(on_text=lambda instance, value: setattr(self.on_button, 'text', value))
-        self.bind(off_text=lambda instance, value: setattr(self.off_button, 'text', value))
+        self.bind(text_on=lambda instance, value: setattr(self.on_button, 'text', value))
+        self.bind(text_off=lambda instance, value: setattr(self.off_button, 'text', value))
         self.bind(height=self.update_height)
         
         Clock.schedule_once(lambda dt: self.update_button_states(self, self.value), 0)

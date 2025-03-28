@@ -69,3 +69,18 @@
             pos: self.pos
             size: self.size
             radius: root.background_radius
+
+<DTimeSelector>:
+    canvas:
+        Color:
+            rgba: root.background_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: root.background_radius
+        
+        Color:
+            rgba: root.border_color
+        Line:
+            rounded_rectangle: [self.x, self.y, self.width, self.height] + root.background_radius
+            width: root.border_line_width if root.border_line_width > 0 else 0.0001
