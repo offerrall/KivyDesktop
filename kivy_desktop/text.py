@@ -17,3 +17,5 @@ class DTextInput(TextInput):
     cursor_color = ListProperty([1, 1, 1, 1])
     multiline = False
     
+    def __init__(self, **kwargs):
+        super(DTextInput, self).__init__(**kwargs)
