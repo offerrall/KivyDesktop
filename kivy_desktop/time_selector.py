@@ -44,6 +44,8 @@ class DTimeSelector(BoxLayout):
         self.orientation = 'horizontal'
         self.spacing = dp(5)
         
+        self._creating_widgets = True
+        
         self.hours_numeric = DNumeric(
             value=self.hours,
             min_value=0,
@@ -98,31 +100,44 @@ class DTimeSelector(BoxLayout):
         self.bind(allow_over_24=self.update_hours_max)
         self.bind(use_seconds=self.toggle_seconds)
         
+        self._creating_widgets = False
+        
+        Clock.schedule_once(lambda dt: self.initialize_values(), 0)
+    
+    def initialize_values(self):
+        """Inicializa los valores de los widgets numéricos con los valores actuales de las propiedades"""
+        self.hours_numeric.value = self.hours
+        self.minutes_numeric.value = self.minutes
+        self.seconds_numeric.value = self.seconds
+    
     def on_hours_changed(self, instance, value):
-        self.hours = value
+        """Callback cuando cambia el valor de las horas en el widget numérico"""
+        self.hours = int(value)
         if self.on_change_callback:
             self.on_change_callback(self)
     
     def on_minutes_changed(self, instance, value):
-        self.minutes = value
+        """Callback cuando cambia el valor de los minutos en el widget numérico"""
+        self.minutes = int(value)
         if self.on_change_callback:
             self.on_change_callback(self)
     
     def on_seconds_changed(self, instance, value):
-        self.seconds = value
+        """Callback cuando cambia el valor de los segundos en el widget numérico"""
+        self.seconds = int(value)
         if self.on_change_callback:
             self.on_change_callback(self)
     
     def update_hours(self, instance, value):
-        if value != self.hours_numeric.value:
+        if not self._creating_widgets and value != self.hours_numeric.value:
             self.hours_numeric.value = value
     
     def update_minutes(self, instance, value):
-        if value != self.minutes_numeric.value:
+        if not self._creating_widgets and value != self.minutes_numeric.value:
             self.minutes_numeric.value = value
     
     def update_seconds(self, instance, value):
-        if value != self.seconds_numeric.value:
+        if not self._creating_widgets and value != self.seconds_numeric.value:
             self.seconds_numeric.value = value
     
     def update_hours_max(self, instance, value):
@@ -138,11 +153,16 @@ class DTimeSelector(BoxLayout):
             self.remove_widget(self.seconds_numeric)
     
     def get_total_seconds(self):
-        """Returns the total time in seconds"""
-        return self.hours * 3600 + self.minutes * 60 + self.seconds
+        """Retorna el tiempo total en segundos"""
+        hours = int(self.hours)
+        minutes = int(self.minutes)
+        seconds = int(self.seconds)
+        
+        total = hours * 3600 + minutes * 60 + seconds
+        return total
     
     def set_time(self, hours=0, minutes=0, seconds=0):
-        """Set the time directly"""
+        """Establece el tiempo directamente"""
         if not self.allow_over_24 and hours > 23:
             hours = 23
         
@@ -151,16 +171,23 @@ class DTimeSelector(BoxLayout):
             
         if seconds > 59:
             seconds = 59
-            
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
+        
+        self.hours = int(hours)
+        self.minutes = int(minutes)
+        self.seconds = int(seconds)
+        
+        self.hours_numeric.value = self.hours
+        self.minutes_numeric.value = self.minutes
+        self.seconds_numeric.value = self.seconds
         
         if self.on_change_callback:
             self.on_change_callback(self)
     
     def set_from_seconds(self, total_seconds):
-        """Set the time from total seconds"""
+        """Establece el tiempo a partir de segundos totales"""
+        if total_seconds < 0:
+            total_seconds = 0
+            
         hours = total_seconds // 3600
         remaining = total_seconds % 3600
         minutes = remaining // 60
