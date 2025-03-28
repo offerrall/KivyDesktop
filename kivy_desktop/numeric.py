@@ -61,7 +61,6 @@ class DNumeric(BoxLayout):
         super(DNumeric, self).__init__(**kwargs)
         self.orientation = 'horizontal'
         self.spacing = dp(0)
-        self.size_hint_y = None
         
         self.decrement_error_timer = None
         self.increment_error_timer = None
