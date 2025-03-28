@@ -72,7 +72,7 @@ class DNumeric(BoxLayout):
         
         self.decrement_btn = DButton(
             text="-",
-            size_hint=(None, 1),
+            size_hint_x=None,
             width=self.plus_minus_width,
             border_color=self.border_color,
             border_hover=self.plus_minus_border_color_down,
@@ -98,7 +98,7 @@ class DNumeric(BoxLayout):
         
         self.increment_btn = DButton(
             text="+",
-            size_hint=(None, 1),
+            size_hint_x=None,
             width=self.plus_minus_width,
             border_color=self.border_color,
             border_hover=self.plus_minus_border_color_down,
