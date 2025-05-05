@@ -23,12 +23,12 @@ A collection of stylized widgets for creating visually appealing desktop applica
 ### From Source
 1. Clone the repository:
 ```bash
-git clone https://github.com/offerrall/kivy_desktop.git
+git clone https://github.com/offerrall/KivyDesktop
 ```
 
 2. Navigate to the project directory:
 ```bash
-cd kivy_desktop
+cd KivyDesktop
 ```
 
 3. Install the package:
@@ -41,49 +41,12 @@ Or install in development mode:
 pip install -e .
 ```
 
-## Basic Usage
-
-```python
-from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy_desktop.button import DButton
-from kivy_desktop.numeric import DNumeric
-from kivy_desktop.spinner import DSpinner
-from kivy_desktop.switch import DSwitch
-from kivy_desktop.boxlayout import DBoxLayout
-
-class TestApp(App):
-    def build(self):
-        layout = BoxLayout(orientation='vertical', spacing=10, padding=10)
-        
-        # Add a stylized box layout
-        styled_box = DBoxLayout(padding=20, orientation='vertical')
-        layout.add_widget(styled_box)
-        
-        # Add a button
-        btn = DButton(text="Click me", release_callback=self.on_button_click)
-        styled_box.add_widget(btn)
-        
-        # Add a numeric control
-        numeric = DNumeric(value=50, min_value=0, max_value=100)
-        styled_box.add_widget(numeric)
-        
-        # Add a spinner
-        spinner = DSpinner(text="Select", values=["Option 1", "Option 2", "Option 3"])
-        styled_box.add_widget(spinner)
-        
-        # Add a switch
-        switch = DSwitch(value=True, on_text="ON", off_text="OFF")
-        styled_box.add_widget(switch)
-        
-        return layout
-    
-    def on_button_click(self, instance):
-        print("Button pressed")
-
-if __name__ == "__main__":
-    TestApp().run()
+```bash
+pip install -r requirements.txt
 ```
+
+## Example Usage
+For a simple example of how to use the widgets, check out the `example.py` file in the repository.
 
 ## Some Widget Components
 
